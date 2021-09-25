@@ -47,7 +47,7 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 24px;
 }
 
 .title,
@@ -57,14 +57,14 @@
 
 .description {
   line-height: 1.5;
-  font-size: 1.5rem;
+  font-size: 24px;
 }
 
 .code {
   background: #fafafa;
   border-radius: 5px;
   padding: 0.75rem;
-  font-size: 1.1rem;
+  font-size: 24px;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
@@ -99,12 +99,12 @@
 
 .card h2 {
   margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+  font-size: 24px;
 }
 
 .card p {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 24px;
   line-height: 1.5;
 }
 
@@ -119,3 +119,4 @@
     flex-direction: column;
   }
 }
+
