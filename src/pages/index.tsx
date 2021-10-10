@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/nav/header'
 import Footer from '../components/footer/footer'
+import AddPositionForm from '../components/addPosition/addPosition'
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
+      <AddPositionForm />
       Hello World
       <Footer />
     </div>
