@@ -1,0 +1,31 @@
+
+.wrapper {
+  border-top: 20px solid #eaeaea;
+  display: flex;
+  justify-content: center;
+}
+
+
+.formWrapper{
+  width: 50%;
+}
+
+.rowGroup {
+  display: flex;
+  justify-content: space-around;
+}
+
+.formItem {
+  margin: 1rem;
+  width: 100%;
+}
+
+.datePicker input {
+    border-width: 1px;
+    width: 100%;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    height: 2.5rem;
+    padding: 1rem;
+
+}
