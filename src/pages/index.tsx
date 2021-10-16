@@ -34,7 +34,6 @@ const Home: NextPage = () => {
 
       <Header />
       <AddPositionForm />
-      Hello World
       <Footer />
     </div>
   )

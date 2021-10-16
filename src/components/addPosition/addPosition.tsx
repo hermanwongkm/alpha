@@ -58,6 +58,8 @@ const AddPositionForm = () => {
                             />
                         </div>
                     </div>
+                    <div className={styles.rowGroup}>
+                        <div className={styles.formItem}>
                     <FormLabel>Quantity</FormLabel>
                     <NumberInput min={1}>
                         <NumberInputField placeholder='100' {...register("quantity")} />
@@ -66,6 +68,8 @@ const AddPositionForm = () => {
                             <NumberDecrementStepper />
                         </NumberInputStepper>
                     </NumberInput>
+                        </div>
+                        <div className={styles.formItem}>
                     <FormLabel>Price</FormLabel>
                     <NumberInput min={1}>
                         <NumberInputField placeholder='$100' {...register("price")} />
@@ -74,8 +78,10 @@ const AddPositionForm = () => {
                             <NumberDecrementStepper />
                         </NumberInputStepper>
                     </NumberInput>
+                        </div>
+                    </div>
                 </FormControl>
-                <Button mt={4} colorScheme="teal" type="submit" onClick={handleSubmit(onSubmit)}>
+                <Button className={styles.submitButton} mt={4} colorScheme="teal" type="submit" onClick={handleSubmit(onSubmit)}>
                     Submit
                 </Button>
             </form>

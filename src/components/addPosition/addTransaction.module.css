@@ -1,6 +1,5 @@
 
 .wrapper {
-  border-top: 20px solid #eaeaea;
   display: flex;
   justify-content: center;
 }
@@ -36,4 +35,8 @@
 .radioButton{
   width: 10rem;
   margin: 1rem;
+}
+
+.submitButton{
+  margin:1rem;
 }

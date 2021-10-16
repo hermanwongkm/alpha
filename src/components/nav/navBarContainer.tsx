@@ -9,8 +9,8 @@ const NavBarContainer = ({ children, ...props }) => {
             justify="space-between"
             wrap="wrap"
             w="100%"
-            mb={8}
-            p={8}
+            mb={4}
+            p={4}
             bg="#FFFFFF"
             boxShadow={"sm"}
             color={["gray.500"]}
