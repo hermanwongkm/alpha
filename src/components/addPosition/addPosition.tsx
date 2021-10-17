@@ -6,11 +6,16 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import styles from './addTransaction.module.css'
 import RadioGroup from './radioGroup';
+import moment from 'moment';
 
 const AddPositionForm = () => {
     const { register, handleSubmit, control } = useForm();
     const onSubmit = (data) => {
-        console.log(data);
+        const transformedData = {
+            ...data,
+            date: moment.utc(data.date).format()
+        }
+        console.log(transformedData)
 
     };
 
@@ -42,7 +47,7 @@ const AddPositionForm = () => {
                             <FormLabel>Date</FormLabel>
                             <Controller
                                 control={control}
-                                name="ReactDatepicker"
+                                name="date"
                                 render={
                                     ({ field: { onChange, onBlur, value, ref } }) =>
                                     (
