@@ -1,0 +1,13 @@
+
+.radioGroup {
+  display: flex;
+}
+
+.radioButton{
+  width: 10rem;
+  margin: 1rem;
+}
+
+.submitButton{
+  margin:1rem;
+}

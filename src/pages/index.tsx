@@ -4,17 +4,9 @@ import Header from '../components/nav/header'
 import Footer from '../components/footer/footer'
 import AddPositionForm from '../components/addPosition/addPosition'
 import { useQuery } from 'urql'
+import testQuery from '../graphql/queries'
 
-const testQuery = `
-query { 
-  stockTransaction {
-symbol
-openPrice
-openDate
-closeDate
-closePrice
-} }
-`
+
 const Home: NextPage = () => {
   const [result, reexecuteQuery] = useQuery({
     query: testQuery,

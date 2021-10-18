@@ -1,11 +1,10 @@
 import React, { FC } from "react";
 import { useRadio, Box } from "@chakra-ui/react";
 
-import styles from './addTransaction.module.css'
+import styles from './radioButton.module.css'
 
 const RadioCard: FC = (props: any) => {
     const { getInputProps, getCheckboxProps } = useRadio(props);
-    console.log(props.children)
     const input = getInputProps();
     const checkbox = getCheckboxProps();
 

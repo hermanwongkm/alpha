@@ -3,7 +3,7 @@ import { useRadioGroup, FormControl, } from "@chakra-ui/react";
 import RadioCard from "./radioCard";
 
 
-import styles from './addTransaction.module.css'
+import styles from './radioButton.module.css'
 
 const RadioGroup = (props: any) => {
     var { isRequired, onChange } = props

@@ -4,7 +4,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { Provider } from 'urql'
-import client from './api/UrqlClient'
+import client from '../graphql/UrqlClient'
 
 const color = {
   brand: {
@@ -15,6 +15,7 @@ const color = {
 const theme = extendTheme({ color })
 function App({ Component, pageProps }: AppProps) {
   return (
+    //every component and element inside and under the Provider can use GraphQL queries that will be sent to our API.
     <Provider value={client}>
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
