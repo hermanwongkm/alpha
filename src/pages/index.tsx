@@ -3,19 +3,72 @@ import Head from 'next/head'
 import Header from '../components/nav/header'
 import Footer from '../components/footer/footer'
 import AddPositionForm from '../components/addPosition/addPosition'
-import { useQuery } from 'urql'
+import { gql, useMutation, useQuery } from 'urql'
 import testQuery from '../graphql/queries'
 
 
 const Home: NextPage = () => {
+
+  const FEED_QUERY2 = gql`
+  {
+    stockTransaction {
+  symbol
+  openPrice
+  openDate
+  closeDate
+  closePrice
+  }
+  }
+  `
+
   const [result, reexecuteQuery] = useQuery({
-    query: testQuery,
+    query: FEED_QUERY2,
+    pause: true
   });
 
-  const { data, fetching, error } = result;
+  // console.log(result.data)
+  const FEED_QUERY = gql`
+  {
+    feed {
+      links {
+        id
+        createdAt
+        url
+        description
+      }
+    }
+  }
+`
 
+
+
+  // console.log(testQuery)
+  // console.log(FEED_QUERY)
+  // console.log(FEED_QUERY2)
+
+  const createTransaction = `
+  mutation{
+      addStockTransaction(
+       symbol:"2",
+       openPrice: 123
+      ){
+        symbol,
+        openPrice
+      }
+    }`
+
+  const [result1, executeMutation] = useMutation(createTransaction)
+
+
+  const { data, fetching, error } = result;
+  // console.log(data)
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
+
+
+
+
+
   return (
     <div >
       <Head>
@@ -25,7 +78,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
-      <AddPositionForm />
+      <AddPositionForm execute={reexecuteQuery} />
       <Footer />
     </div>
   )

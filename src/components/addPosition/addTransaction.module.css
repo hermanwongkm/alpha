@@ -10,12 +10,12 @@
 
 .rowGroup {
   display: flex;
-  justify-content: space-around;
+  justify-content:flex-start;
 }
 
 .formItem {
-  margin: 1rem;
-  width: 100%;
+  width: 50%;
+  padding: 1rem;
 }
 
 .datePicker input {

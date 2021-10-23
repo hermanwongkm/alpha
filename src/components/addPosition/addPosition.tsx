@@ -1,22 +1,31 @@
-import { FormControl, FormLabel, Input, NumberInput, NumberInputField, NumberDecrementStepper, NumberIncrementStepper, NumberInputStepper, Button, useRadioGroup, } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, NumberInput, NumberInputField, NumberDecrementStepper, NumberIncrementStepper, NumberInputStepper, Button, useRadioGroup, Select, } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { useMutation } from 'urql';
 
+import "react-datepicker/dist/react-datepicker.css";
 import styles from './addTransaction.module.css'
 import RadioGroup from '../radioButton/radioGroup';
 import moment from 'moment';
 
-const AddPositionForm = () => {
-    const { register, handleSubmit, control } = useForm();
-    const onSubmit = (data) => {
+//Expiry date, call or put, strike, premium
+const AddPositionForm = (props) => {
+    const { register, handleSubmit, control } = useForm({
+        defaultValues: {
+            action: "buy",
+            type: "stock",
+        }
+    });
+
+    const actionOptions = [{ value: "Buy", color: "#28A745" }, { value: "Sell", color: "#DC3545" }]
+    const onSubmit = (data: any) => {
         const transformedData = {
             ...data,
             date: moment.utc(data.date).format()
         }
+        props.execute()
         console.log(transformedData)
-
     };
 
     return (
@@ -34,9 +43,20 @@ const AddPositionForm = () => {
                                         name="action"
                                         control={control}
                                         onChange={onChange}
+                                        options={actionOptions}
                                     />
                                 )}
                         />
+                    </div>
+                    <div className={styles.rowGroup}>
+                        <div className={styles.formItem}>
+                            <FormLabel>Type</FormLabel>
+                            <Select placeholder="Select type"  {...register("type")} >
+                                <option value="stock">Stock</option>
+                                <option value="option">Options</option>
+                            </Select>
+                        </div>
+
                     </div>
                     <div className={styles.rowGroup}>
                         <div className={styles.formItem}>
@@ -86,7 +106,11 @@ const AddPositionForm = () => {
                         </div>
                     </div>
                 </FormControl>
-                <Button className={styles.submitButton} mt={4} colorScheme="teal" type="submit" onClick={handleSubmit(onSubmit)}>
+                <Button className={styles.submitButton}
+                    mt={4}
+                    colorScheme="teal"
+                    type="submit"
+                    onClick={handleSubmit(onSubmit)}>
                     Submit
                 </Button>
             </form>

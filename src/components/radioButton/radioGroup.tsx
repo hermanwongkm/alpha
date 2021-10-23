@@ -6,25 +6,25 @@ import RadioCard from "./radioCard";
 import styles from './radioButton.module.css'
 
 const RadioGroup = (props: any) => {
-    var { isRequired, onChange } = props
+    var { isRequired, onChange, options, test } = props
+
 
     const { getRadioProps, getRootProps } = useRadioGroup({
-        defaultValue: "Buy",
+        defaultValue: options[0].value,
         onChange: onChange,
         isDisabled: true
     });
 
     const group = getRootProps()
-    const options = ["Buy", "Sell"]
 
     return (
         <FormControl isRequired={isRequired} >
             <div className={styles.radioGroup}>
                 {options.map((value) => {
-                    const radio = getRadioProps({ value });
+                    const radio = getRadioProps({ value: value.value });
                     return (
-                        <RadioCard key={value} {...radio} >
-                            {value}
+                        <RadioCard buttonColor={value.color} key={value.value} {...radio} >
+                            {value.value}
                         </RadioCard>
                     );
                 })}

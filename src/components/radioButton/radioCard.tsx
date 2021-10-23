@@ -8,7 +8,7 @@ const RadioCard: FC = (props: any) => {
     const input = getInputProps();
     const checkbox = getCheckboxProps();
 
-    const buttonColor = props.children == "Buy" ? "green.500" : "red.500"
+    const buttonColor = props.buttonColor
 
     return (
         <Box className={styles.radioButton} as="label">
