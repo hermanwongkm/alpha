@@ -40,34 +40,10 @@ const Home: NextPage = () => {
   }
 `
 
-
-
-  // console.log(testQuery)
-  // console.log(FEED_QUERY)
-  // console.log(FEED_QUERY2)
-
-  const createTransaction = `
-  mutation{
-      addStockTransaction(
-       symbol:"2",
-       openPrice: 123
-      ){
-        symbol,
-        openPrice
-      }
-    }`
-
-  const [result1, executeMutation] = useMutation(createTransaction)
-
-
   const { data, fetching, error } = result;
   // console.log(data)
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-
-
-
-
 
   return (
     <div >
