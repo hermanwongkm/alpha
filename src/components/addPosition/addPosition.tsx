@@ -19,10 +19,11 @@ const AddPositionForm = (props) => {
     });
 
     const createTransaction = `
-        mutation($symbol: String, $price: Float){
+        mutation($symbol: String, $price: Float, $size: Int){
             addStockTransaction(
             symbol:$symbol,
-            openPrice: $price
+            openPrice: $price,
+            size: $size,
             ){
             symbol,
             openPrice
@@ -35,14 +36,17 @@ const AddPositionForm = (props) => {
     const isOption = watch("type") === "option"
     const actionOptions = [{ value: "Buy", color: "#28A745" }, { value: "Sell", color: "#DC3545" }]
     const onSubmit = (data: any) => {
-        executeMutation({ symbol: "abc", price: 5 })
         const transformedData = {
-            ...data,
-            date: moment.utc(data.date).format(),
-            expiryDate: data.expiryDate ? moment.utc(data.expiryDate).format() : null
+            // action: data.action,
+            symbol: data.symbol,
+            price: data.price,
+            size: data.size,
+            // date: moment.utc(data.date).format(),
+            // expiryDate: data.expiryDate ? moment.utc(data.expiryDate).format() : null
         }
         props.execute()
         console.log(transformedData)
+        executeMutation(transformedData)
     };
 
     return (
@@ -139,9 +143,11 @@ const AddPositionForm = (props) => {
                     </div>
                     <div className={styles.rowGroup}>
                         <div className={styles.formItem}>
-                    <FormLabel>Quantity</FormLabel>
+                            <FormLabel>Size</FormLabel>
                     <NumberInput min={1}>
-                        <NumberInputField placeholder='100' {...register("quantity")} />
+                                <NumberInputField placeholder='100' {...register("size", {
+                                    valueAsNumber: true,
+                                })} />
                         <NumberInputStepper>
                             <NumberIncrementStepper />
                             <NumberDecrementStepper />
@@ -151,7 +157,9 @@ const AddPositionForm = (props) => {
                         <div className={styles.formItem}>
                     <FormLabel>Price</FormLabel>
                     <NumberInput min={1}>
-                        <NumberInputField placeholder='$100' {...register("price")} />
+                                <NumberInputField placeholder='$100' {...register("price", {
+                                    valueAsNumber: true,
+                                })} />
                         <NumberInputStepper>
                             <NumberIncrementStepper />
                             <NumberDecrementStepper />
