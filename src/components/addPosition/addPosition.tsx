@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input, NumberInput, NumberInputField, NumberDecrementStepper, NumberIncrementStepper, NumberInputStepper, Button, useRadioGroup, Select, } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, NumberInput, NumberInputField, NumberDecrementStepper, NumberIncrementStepper, NumberInputStepper, Button, useRadioGroup, Select, Alert, AlertDescription, AlertIcon, AlertTitle, CloseButton, } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import DatePicker from "react-datepicker";
@@ -11,7 +11,7 @@ import moment from 'moment';
 
 //Expiry date, call or put, strike
 const AddPositionForm = (props) => {
-    const { register, handleSubmit, control, watch } = useForm({
+    const { register, handleSubmit, control, watch, formState: { errors } } = useForm({
         defaultValues: {
             action: "buy",
             type: "stock",
@@ -147,16 +147,28 @@ const AddPositionForm = (props) => {
                     <NumberInput min={1}>
                                 <NumberInputField placeholder='100' {...register("size", {
                                     valueAsNumber: true,
+                                    required: "Please enter quantity"
                                 })} />
                         <NumberInputStepper>
                             <NumberIncrementStepper />
                             <NumberDecrementStepper />
                         </NumberInputStepper>
                     </NumberInput>
+                            {errors.size &&
+                                <Alert
+                                    status="error"
+                                    fontSize="sm"
+                                    marginTop="1rem"
+                                    borderRadius="0.5rem"
+                                >
+                                    <AlertIcon />
+                                    {errors.size.message}
+                                </Alert>}
                         </div>
                         <div className={styles.formItem}>
                     <FormLabel>Price</FormLabel>
-                    <NumberInput min={1}>
+                            <NumberInput min={1} isInvalid={false}
+                                errorBorderColor="crimson">
                                 <NumberInputField placeholder='$100' {...register("price", {
                                     valueAsNumber: true,
                                 })} />
