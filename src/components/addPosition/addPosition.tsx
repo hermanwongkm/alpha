@@ -11,7 +11,7 @@ import moment from 'moment';
 
 //Expiry date, call or put, strike
 const AddPositionForm = (props) => {
-    const { register, handleSubmit, control, watch, formState: { errors } } = useForm({
+    const { reset, register, handleSubmit, control, watch, formState: { errors } } = useForm({
         defaultValues: {
             action: "buy",
             type: "stock",
@@ -40,13 +40,13 @@ const AddPositionForm = (props) => {
             // action: data.action,
             symbol: data.symbol,
             price: data.price,
-            size: data.size,
+            size: parseInt(data.size),
             // date: moment.utc(data.date).format(),
             // expiryDate: data.expiryDate ? moment.utc(data.expiryDate).format() : null
         }
-        props.execute()
         console.log(transformedData)
         executeMutation(transformedData)
+        reset({ size: 2, price: 0, symbol: "Hello" })
     };
 
     return (
@@ -144,16 +144,32 @@ const AddPositionForm = (props) => {
                     <div className={styles.rowGroup}>
                         <div className={styles.formItem}>
                             <FormLabel>Size</FormLabel>
-                    <NumberInput min={1}>
+                            <Controller
+                                control={control}
+                                name="size"
+                                render={
+                                    ({ field: { onChange, onBlur, value, ref } }) => (
+                                        <NumberInput min={1} onChange={onChange} value={value}>
+                                            <NumberInputField placeholder='100' />
+                                            <NumberInputStepper>
+                                                <NumberIncrementStepper />
+                                                <NumberDecrementStepper />
+                                            </NumberInputStepper>
+                                        </NumberInput>
+                                    )
+                                }
+                            />
+                            {/* <Input type='text' placeholder='AAPL' {...register("size")} /> */}
+                            {/* <NumberInput min={1}>
                                 <NumberInputField placeholder='100' {...register("size", {
                                     valueAsNumber: true,
                                     required: "Please enter quantity"
                                 })} />
-                        <NumberInputStepper>
+                                <NumberInputStepper>
                             <NumberIncrementStepper />
                             <NumberDecrementStepper />
-                        </NumberInputStepper>
-                    </NumberInput>
+                                </NumberInputStepper>
+                            </NumberInput> */}
                             {errors.size &&
                                 <Alert
                                     status="error"

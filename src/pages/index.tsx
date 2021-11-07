@@ -22,11 +22,11 @@ const Home: NextPage = () => {
   `
 
   const [result, reexecuteQuery] = useQuery({
-    query: FEED_QUERY2,
+    query: testQuery,
     pause: true
   });
 
-  // console.log(result.data)
+  console.log(result.data)
   const FEED_QUERY = gql`
   {
     feed {

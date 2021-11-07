@@ -15,7 +15,9 @@ const color = {
 const theme = extendTheme({ color })
 function App({ Component, pageProps }: AppProps) {
   return (
-    //every component and element inside and under the Provider can use GraphQL queries that will be sent to our API.
+    // Provider to allow our React-tree to access the client.
+    //every component and element inside and under the Provider 
+    //can use GraphQL queries that will be sent to our API.
     <Provider value={client}>
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
