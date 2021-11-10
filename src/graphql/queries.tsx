@@ -11,7 +11,6 @@
 //     }
 //   }
 
-
 const testQuery = `
 query { 
   stockTransaction {
@@ -21,5 +20,5 @@ openDate
 closeDate
 closePrice
 } }
-`
-export default testQuery
+`;
+export default testQuery;
