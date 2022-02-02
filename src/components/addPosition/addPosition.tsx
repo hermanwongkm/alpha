@@ -13,14 +13,14 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import { useMutation } from "urql";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./addTransaction.module.css";
 import RadioGroup from "../radioButton/radioGroup";
-
+import NumberComponent from "../simpleComponents/numberComponent/NumberComponent";
 enum Fields {
   positionSize = "size",
   numEmployees = "numEmployees",
@@ -28,6 +28,13 @@ enum Fields {
 
 //Expiry date, call or put, strike
 const AddPositionForm = (props: any) => {
+  const formMethods = useForm({
+    defaultValues: {
+      action: "buy",
+      type: "stock",
+    },
+  });
+
   const {
     reset,
     register,
@@ -35,12 +42,7 @@ const AddPositionForm = (props: any) => {
     control,
     watch,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      action: "buy",
-      type: "stock",
-    },
-  });
+  } = formMethods;
 
   const createTransaction = `
         mutation($symbol: String, $price: Float, $size: Int){
@@ -83,137 +85,58 @@ const AddPositionForm = (props: any) => {
   return (
     <div className={styles.wrapper}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
-          <div>
-            <Controller
-              control={control}
-              name="action"
-              render={({ field: { onChange, onBlur, value, ref } }) => (
-                <RadioGroup
-                  name="action"
-                  control={control}
-                  onChange={onChange}
-                  options={actionOptions}
-                />
-              )}
-            />
-          </div>
-          <div className={styles.rowGroup}>
-            <div className={styles.formItem}>
-              <FormLabel>Type</FormLabel>
-              <Select placeholder="Select type" {...register("type")}>
-                <option value="stock">Stock</option>
-                <option value="option">Options</option>
-              </Select>
-            </div>
-            {isOption && (
-              <div className={styles.formItem}>
-                <FormLabel>Option type</FormLabel>
-                <Select placeholder="Select type" {...register("optionType")}>
-                  <option value="call">Call</option>
-                  <option value="put">Put</option>
-                </Select>
-              </div>
-            )}
-          </div>
-          <div className={styles.rowGroup}>
-            <div className={styles.formItem}>
-              <FormLabel>Stock Name</FormLabel>
-              <Input type="text" placeholder="AAPL" {...register("symbol")} />
-            </div>
-            <div className={styles.formItem}>
-              <FormLabel>Date</FormLabel>
+        <FormProvider {...formMethods}>
+          <FormControl>
+            <div>
               <Controller
                 control={control}
-                name="date"
-                rules={{
-                  required: "Please enter quantity",
-                  validate: {
-                    equals: (password) =>
-                      password === "password123" ||
-                      "Choose a more secure password",
-                  },
-                }}
+                name="action"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <DatePicker
-                    wrapperClassName={styles.datePicker}
-                    dateFormat="dd/MM/yyyy"
-                    todayButton="Today"
+                  <RadioGroup
+                    name="action"
+                    control={control}
                     onChange={onChange}
-                    onBlur={onBlur}
-                    selected={value}
+                    options={actionOptions}
                   />
                 )}
               />
             </div>
-          </div>
-          <div className={styles.rowGroup}>
-            <div className={styles.formItem}>
-              <FormLabel>Size</FormLabel>
-              <Controller
-                control={control}
-                name={Fields.positionSize}
-                rules={{
-                  required: "Please enter quantity",
-                }}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <NumberInput min={1} onChange={onChange} value={value}>
-                    <NumberInputField placeholder="100" />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                )}
-              />
-              {/* <NumberInput min={1}>
-                <NumberInputField
-                  placeholder="100"
-                  {...register("size", {
-                    valueAsNumber: true,
-                    required: "Please enter quantity",
-                  })}
-                />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput> */}
-              {errors.size && (
-                <Alert
-                  status="error"
-                  fontSize="sm"
-                  marginTop="1rem"
-                  borderRadius="0.5rem"
-                >
-                  <AlertIcon />
-                  {errors.size.message}
-                </Alert>
-              )}
-            </div>
-            <div className={styles.formItem}>
-              <FormLabel>Price</FormLabel>
-              <NumberInput min={1} isInvalid={false} errorBorderColor="crimson">
-                <NumberInputField
-                  placeholder="$100"
-                  {...register("price", {
-                    valueAsNumber: true,
-                  })}
-                />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-            </div>
-          </div>
-          {isOption && (
             <div className={styles.rowGroup}>
               <div className={styles.formItem}>
-                <FormLabel>Expiration Date</FormLabel>
+                <FormLabel>Type</FormLabel>
+                <Select placeholder="Select type" {...register("type")}>
+                  <option value="stock">Stock</option>
+                  <option value="option">Options</option>
+                </Select>
+              </div>
+              {isOption && (
+                <div className={styles.formItem}>
+                  <FormLabel>Option type</FormLabel>
+                  <Select placeholder="Select type" {...register("optionType")}>
+                    <option value="call">Call</option>
+                    <option value="put">Put</option>
+                  </Select>
+                </div>
+              )}
+            </div>
+            <div className={styles.rowGroup}>
+              <div className={styles.formItem}>
+                <FormLabel>Stock Name</FormLabel>
+                <Input type="text" placeholder="AAPL" {...register("symbol")} />
+              </div>
+              <div className={styles.formItem}>
+                <FormLabel>Date</FormLabel>
                 <Controller
                   control={control}
-                  name="expiryDate"
+                  name="date"
+                  rules={{
+                    required: "Please enter quantity",
+                    validate: {
+                      equals: (password) =>
+                        password !== "password123" ||
+                        "Choose a more secure password",
+                    },
+                  }}
                   render={({ field: { onChange, onBlur, value, ref } }) => (
                     <DatePicker
                       wrapperClassName={styles.datePicker}
@@ -226,12 +149,58 @@ const AddPositionForm = (props: any) => {
                   )}
                 />
               </div>
+            </div>
+            <div className={styles.rowGroup}>
               <div className={styles.formItem}>
-                <FormLabel>Strike Price</FormLabel>
-                <NumberInput min={1}>
+                <FormLabel>Size</FormLabel>
+                <Controller
+                  control={control}
+                  name={Fields.positionSize}
+                  rules={{
+                    required: "Please enter quantity",
+                  }}
+                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <NumberComponent onChange={onChange} value={value} />
+                  )}
+                />
+                {/* <Input type="text" placeholder="AAPL" {...register("size")} /> */}
+                {/* <NumberInput min={1}>
+                <NumberInputField
+                  placeholder="100"
+                  {...register("size", {
+                    valueAsNumber: true,
+                    required: "Please enter quantity",
+                  })}
+                />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput> */}
+                {errors.size && (
+                  <Alert
+                    status="error"
+                    fontSize="sm"
+                    marginTop="1rem"
+                    borderRadius="0.5rem"
+                  >
+                    <AlertIcon />
+                    {errors.size.message}
+                  </Alert>
+                )}
+              </div>
+              <div className={styles.formItem}>
+                <FormLabel>Price</FormLabel>
+                <NumberInput
+                  min={1}
+                  isInvalid={false}
+                  errorBorderColor="crimson"
+                >
                   <NumberInputField
                     placeholder="$100"
-                    {...register("strike")}
+                    {...register("price", {
+                      valueAsNumber: true,
+                    })}
                   />
                   <NumberInputStepper>
                     <NumberIncrementStepper />
@@ -240,8 +209,43 @@ const AddPositionForm = (props: any) => {
                 </NumberInput>
               </div>
             </div>
-          )}
-        </FormControl>
+            {isOption && (
+              <div className={styles.rowGroup}>
+                <div className={styles.formItem}>
+                  <FormLabel>Expiration Date</FormLabel>
+                  <Controller
+                    control={control}
+                    name="expiryDate"
+                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                      <DatePicker
+                        wrapperClassName={styles.datePicker}
+                        dateFormat="dd/MM/yyyy"
+                        todayButton="Today"
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        selected={value}
+                      />
+                    )}
+                  />
+                </div>
+                <div className={styles.formItem}>
+                  <FormLabel>Strike Price</FormLabel>
+                  <NumberInput min={1}>
+                    <NumberInputField
+                      placeholder="$100"
+                      {...register("strike")}
+                    />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </div>
+              </div>
+            )}
+          </FormControl>
+        </FormProvider>
+
         <Button
           className={styles.submitButton}
           mt={4}
