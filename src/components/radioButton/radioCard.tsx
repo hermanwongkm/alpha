@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { useRadio, Box } from '@chakra-ui/react';
+import React, { FC } from "react";
+import { useRadio, Box } from "@chakra-ui/react";
 
-import styles from './radioButton.module.css';
+import styles from "./radioButton.module.css";
 
 const RadioCard: FC = (props: any) => {
   const { getInputProps, getCheckboxProps } = useRadio(props);
@@ -22,11 +22,11 @@ const RadioCard: FC = (props: any) => {
         textAlign="center"
         _checked={{
           bg: buttonColor,
-          color: 'white',
+          color: "white",
           borderColor: buttonColor,
         }}
         _focus={{
-          boxShadow: 'outline',
+          boxShadow: "outline",
         }}
         px={5}
         py={3}

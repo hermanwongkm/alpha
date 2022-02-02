@@ -1,10 +1,10 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Header from '../components/nav/header';
-import Footer from '../components/footer/footer';
-import AddPositionForm from '../components/addPosition/addPosition';
-import { gql, useMutation, useQuery } from 'urql';
-import testQuery from '../graphql/queries';
+import type { NextPage } from "next";
+import Head from "next/head";
+import Header from "../components/nav/header";
+import Footer from "../components/footer/footer";
+import AddPositionForm from "../components/addPosition/addPosition";
+import { gql, useMutation, useQuery } from "urql";
+import testQuery from "../graphql/queries";
 
 const Home: NextPage = () => {
   const FEED_QUERY2 = gql`

@@ -1,14 +1,14 @@
 // This `_app.tsx` is responsible for rendering ALL of your pages
 // nextJs passes 2 things, `component` and `pageProps`
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import { Provider } from 'urql';
-import client from '../graphql/UrqlClient';
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { Provider } from "urql";
+import client from "../graphql/UrqlClient";
 
 const color = {
   brand: {
-    900: '#1a365d',
+    900: "#1a365d",
   },
 };
 

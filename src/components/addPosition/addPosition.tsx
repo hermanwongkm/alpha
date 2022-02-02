@@ -8,26 +8,21 @@ import {
   NumberIncrementStepper,
   NumberInputStepper,
   Button,
-  useRadioGroup,
   Select,
   Alert,
-  AlertDescription,
   AlertIcon,
-  AlertTitle,
-  CloseButton,
-} from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import DatePicker from 'react-datepicker';
-import { useMutation } from 'urql';
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import DatePicker from "react-datepicker";
+import { useMutation } from "urql";
 
-import 'react-datepicker/dist/react-datepicker.css';
-import styles from './addTransaction.module.css';
-import RadioGroup from '../radioButton/radioGroup';
-import moment from 'moment';
+import "react-datepicker/dist/react-datepicker.css";
+import styles from "./addTransaction.module.css";
+import RadioGroup from "../radioButton/radioGroup";
 
 //Expiry date, call or put, strike
-const AddPositionForm = (props) => {
+const AddPositionForm = (props: any) => {
   const {
     reset,
     register,
@@ -37,8 +32,8 @@ const AddPositionForm = (props) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      action: 'buy',
-      type: 'stock',
+      action: "buy",
+      type: "stock",
     },
   });
 
@@ -56,11 +51,12 @@ const AddPositionForm = (props) => {
 
   const [result1, executeMutation] = useMutation(createTransaction);
 
-  const isOption = watch('type') === 'option';
+  const isOption = watch("type") === "option";
   const actionOptions = [
-    { value: 'Buy', color: '#28A745' },
-    { value: 'Sell', color: '#DC3545' },
+    { value: "Buy", color: "#28A745" },
+    { value: "Sell", color: "#DC3545" },
   ];
+
   const onSubmit = (data: any) => {
     const transformedData = {
       // action: data.action,
@@ -70,10 +66,14 @@ const AddPositionForm = (props) => {
       // date: moment.utc(data.date).format(),
       // expiryDate: data.expiryDate ? moment.utc(data.expiryDate).format() : null
     };
-    console.log(transformedData);
+    // console.log(transformedData);
     executeMutation(transformedData);
-    reset({ size: 2, price: 0, symbol: 'Hello' });
+    // reset({ size: 2, price: 0, symbol: "Hello" });
   };
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   return (
     <div className={styles.wrapper}>
@@ -96,7 +96,7 @@ const AddPositionForm = (props) => {
           <div className={styles.rowGroup}>
             <div className={styles.formItem}>
               <FormLabel>Type</FormLabel>
-              <Select placeholder="Select type" {...register('type')}>
+              <Select placeholder="Select type" {...register("type")}>
                 <option value="stock">Stock</option>
                 <option value="option">Options</option>
               </Select>
@@ -104,51 +104,17 @@ const AddPositionForm = (props) => {
             {isOption && (
               <div className={styles.formItem}>
                 <FormLabel>Option type</FormLabel>
-                <Select placeholder="Select type" {...register('optionType')}>
+                <Select placeholder="Select type" {...register("optionType")}>
                   <option value="call">Call</option>
                   <option value="put">Put</option>
                 </Select>
               </div>
             )}
           </div>
-          {isOption && (
-            <div className={styles.rowGroup}>
-              <div className={styles.formItem}>
-                <FormLabel>Date</FormLabel>
-                <Controller
-                  control={control}
-                  name="expiryDate"
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
-                    <DatePicker
-                      wrapperClassName={styles.datePicker}
-                      dateFormat="dd/MM/yyyy"
-                      todayButton="Today"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      selected={value}
-                    />
-                  )}
-                />
-              </div>
-              <div className={styles.formItem}>
-                <FormLabel>Strike Price</FormLabel>
-                <NumberInput min={1}>
-                  <NumberInputField
-                    placeholder="$100"
-                    {...register('strike')}
-                  />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </div>
-            </div>
-          )}
           <div className={styles.rowGroup}>
             <div className={styles.formItem}>
               <FormLabel>Stock Name</FormLabel>
-              <Input type="text" placeholder="AAPL" {...register('symbol')} />
+              <Input type="text" placeholder="AAPL" {...register("symbol")} />
             </div>
             <div className={styles.formItem}>
               <FormLabel>Date</FormLabel>
@@ -184,17 +150,20 @@ const AddPositionForm = (props) => {
                   </NumberInput>
                 )}
               />
-              {/* <Input type='text' placeholder='AAPL' {...register("size")} /> */}
+              {/* <Input type="text" placeholder="AAPL" {...register("size")} /> */}
               {/* <NumberInput min={1}>
-                                <NumberInputField placeholder='100' {...register("size", {
-                                    valueAsNumber: true,
-                                    required: "Please enter quantity"
-                                })} />
-                                <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput> */}
+                <NumberInputField
+                  placeholder="100"
+                  {...register("size", {
+                    valueAsNumber: true,
+                    required: "Please enter quantity",
+                  })}
+                />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput> */}
               {errors.size && (
                 <Alert
                   status="error"
@@ -212,7 +181,7 @@ const AddPositionForm = (props) => {
               <NumberInput min={1} isInvalid={false} errorBorderColor="crimson">
                 <NumberInputField
                   placeholder="$100"
-                  {...register('price', {
+                  {...register("price", {
                     valueAsNumber: true,
                   })}
                 />
@@ -223,6 +192,40 @@ const AddPositionForm = (props) => {
               </NumberInput>
             </div>
           </div>
+          {isOption && (
+            <div className={styles.rowGroup}>
+              <div className={styles.formItem}>
+                <FormLabel>Expiration Date</FormLabel>
+                <Controller
+                  control={control}
+                  name="expiryDate"
+                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <DatePicker
+                      wrapperClassName={styles.datePicker}
+                      dateFormat="dd/MM/yyyy"
+                      todayButton="Today"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      selected={value}
+                    />
+                  )}
+                />
+              </div>
+              <div className={styles.formItem}>
+                <FormLabel>Strike Price</FormLabel>
+                <NumberInput min={1}>
+                  <NumberInputField
+                    placeholder="$100"
+                    {...register("strike")}
+                  />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </div>
+            </div>
+          )}
         </FormControl>
         <Button
           className={styles.submitButton}
