@@ -21,6 +21,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "./addTransaction.module.css";
 import RadioGroup from "../radioButton/radioGroup";
 
+enum Fields {
+  positionSize = "size",
+  numEmployees = "numEmployees",
+}
+
 //Expiry date, call or put, strike
 const AddPositionForm = (props: any) => {
   const {
@@ -121,6 +126,14 @@ const AddPositionForm = (props: any) => {
               <Controller
                 control={control}
                 name="date"
+                rules={{
+                  required: "Please enter quantity",
+                  validate: {
+                    equals: (password) =>
+                      password === "password123" ||
+                      "Choose a more secure password",
+                  },
+                }}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <DatePicker
                     wrapperClassName={styles.datePicker}
@@ -139,7 +152,10 @@ const AddPositionForm = (props: any) => {
               <FormLabel>Size</FormLabel>
               <Controller
                 control={control}
-                name="size"
+                name={Fields.positionSize}
+                rules={{
+                  required: "Please enter quantity",
+                }}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <NumberInput min={1} onChange={onChange} value={value}>
                     <NumberInputField placeholder="100" />
@@ -150,7 +166,6 @@ const AddPositionForm = (props: any) => {
                   </NumberInput>
                 )}
               />
-              {/* <Input type="text" placeholder="AAPL" {...register("size")} /> */}
               {/* <NumberInput min={1}>
                 <NumberInputField
                   placeholder="100"
