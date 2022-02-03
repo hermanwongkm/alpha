@@ -152,42 +152,7 @@ const AddPositionForm = (props: any) => {
             </div>
             <div className={styles.rowGroup}>
               <div className={styles.formItem}>
-                <FormLabel>Size</FormLabel>
-                <Controller
-                  control={control}
-                  name={Fields.positionSize}
-                  rules={{
-                    required: "Please enter quantity",
-                  }}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
-                    <NumberComponent onChange={onChange} value={value} />
-                  )}
-                />
-                {/* <Input type="text" placeholder="AAPL" {...register("size")} /> */}
-                {/* <NumberInput min={1}>
-                <NumberInputField
-                  placeholder="100"
-                  {...register("size", {
-                    valueAsNumber: true,
-                    required: "Please enter quantity",
-                  })}
-                />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput> */}
-                {errors.size && (
-                  <Alert
-                    status="error"
-                    fontSize="sm"
-                    marginTop="1rem"
-                    borderRadius="0.5rem"
-                  >
-                    <AlertIcon />
-                    {errors.size.message}
-                  </Alert>
-                )}
+                <NumberComponent name={Fields.positionSize} />
               </div>
               <div className={styles.formItem}>
                 <FormLabel>Price</FormLabel>

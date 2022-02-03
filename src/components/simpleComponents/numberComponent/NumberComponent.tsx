@@ -4,26 +4,53 @@ import {
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInputStepper,
+  FormLabel,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { useFormContext } from "react-hook-form";
+import React from "react";
+import { Controller, useFormContext } from "react-hook-form";
 
-//Expiry date, call or put, strike
-const NumberComponent = (props: any) => {
-  const { formState } = useFormContext();
+interface INumberComponentProps {
+  name: string;
+}
 
-  useEffect(() => {
-    console.log(formState.errors);
-  }, [formState.errors]);
+const NumberComponent = (props: INumberComponentProps) => {
+  const {
+    formState: { errors },
+    control,
+  } = useFormContext();
+
   return (
     <>
-      <NumberInput min={1} onChange={props.onChange} value={props.value}>
-        <NumberInputField placeholder="100" />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
+      <FormLabel>{props.name}</FormLabel>
+      <Controller
+        control={control}
+        name={props.name}
+        rules={{
+          required: "Please enter quantity",
+        }}
+        render={({ field: { onChange, value } }) => (
+          <NumberInput min={1} onChange={onChange} value={value}>
+            <NumberInputField placeholder="100" />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+        )}
+      />
+      {errors[props.name] && (
+        <Alert
+          status="error"
+          fontSize="sm"
+          marginTop="1rem"
+          borderRadius="0.5rem"
+        >
+          <AlertIcon />
+          {errors[props.name].message}
+        </Alert>
+      )}
     </>
   );
 };
