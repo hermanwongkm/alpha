@@ -9,8 +9,6 @@ import {
   NumberInputStepper,
   Button,
   Select,
-  Alert,
-  AlertIcon,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
@@ -21,12 +19,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "./addTransaction.module.css";
 import RadioGroup from "../radioButton/radioGroup";
 import NumberComponent from "../simpleComponents/numberComponent/NumberComponent";
+
 enum Fields {
   positionSize = "size",
-  numEmployees = "numEmployees",
+  price = "price",
+  strike = "strike",
 }
 
-//Expiry date, call or put, strike
 const AddPositionForm = (props: any) => {
   const formMethods = useForm({
     defaultValues: {
@@ -65,10 +64,11 @@ const AddPositionForm = (props: any) => {
   ];
 
   const onSubmit = (data: any) => {
+    console.log(data);
     const transformedData = {
       // action: data.action,
       symbol: data.symbol,
-      price: data.price,
+      price: parseInt(data.price),
       size: parseInt(data.size),
       // date: moment.utc(data.date).format(),
       // expiryDate: data.expiryDate ? moment.utc(data.expiryDate).format() : null
@@ -155,23 +155,7 @@ const AddPositionForm = (props: any) => {
                 <NumberComponent name={Fields.positionSize} />
               </div>
               <div className={styles.formItem}>
-                <FormLabel>Price</FormLabel>
-                <NumberInput
-                  min={1}
-                  isInvalid={false}
-                  errorBorderColor="crimson"
-                >
-                  <NumberInputField
-                    placeholder="$100"
-                    {...register("price", {
-                      valueAsNumber: true,
-                    })}
-                  />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
+                <NumberComponent name={Fields.price} />
               </div>
             </div>
             {isOption && (
@@ -194,17 +178,7 @@ const AddPositionForm = (props: any) => {
                   />
                 </div>
                 <div className={styles.formItem}>
-                  <FormLabel>Strike Price</FormLabel>
-                  <NumberInput min={1}>
-                    <NumberInputField
-                      placeholder="$100"
-                      {...register("strike")}
-                    />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
+                  <NumberComponent name={Fields.strike} />
                 </div>
               </div>
             )}

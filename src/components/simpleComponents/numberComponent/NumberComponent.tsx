@@ -28,7 +28,7 @@ const NumberComponent = (props: INumberComponentProps) => {
         control={control}
         name={props.name}
         rules={{
-          required: "Please enter quantity",
+          required: `This field is required.`,
         }}
         render={({ field: { onChange, value } }) => (
           <NumberInput min={1} onChange={onChange} value={value}>
