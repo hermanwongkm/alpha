@@ -3,7 +3,7 @@ import { useRadioGroup } from "@chakra-ui/react";
 import RadioCard from "./radioCard";
 
 import styles from "./radioButton.module.css";
-import { IRadioGroupOptions } from "../simpleComponents/RadioComponent";
+import { IRadioGroupOptions } from "../simpleComponents/radioComponent/RadioComponent";
 
 interface IRadioGrouptProps {
   options: IRadioGroupOptions[];
@@ -13,13 +13,13 @@ interface IRadioGrouptProps {
 const RadioGroup = (props: IRadioGrouptProps) => {
   const { onChange, options } = props;
 
-  const { getRadioProps, getRootProps } = useRadioGroup({
+  const { getRadioProps } = useRadioGroup({
     defaultValue: options[0].value,
     onChange: onChange,
     isDisabled: true,
   });
 
-  const group = getRootProps();
+  // const group = getRootProps();
 
   return (
     <div className={styles.radioGroup}>

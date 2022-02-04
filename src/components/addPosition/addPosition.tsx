@@ -5,7 +5,7 @@ import {
   Button,
   Select,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import { useMutation } from "urql";
@@ -13,7 +13,9 @@ import { useMutation } from "urql";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./addTransaction.module.css";
 import NumberComponent from "../simpleComponents/numberComponent/NumberComponent";
-import RadioComponent from "../simpleComponents/RadioComponent";
+import RadioComponent from "../simpleComponents/radioComponent/RadioComponent";
+import DatePickerComponent from "../simpleComponents/datePickerComponent/DatePickerComponent";
+
 enum Fields {
   positionSize = "size",
   price = "price",
@@ -29,10 +31,8 @@ const AddPositionForm = (props: any) => {
   });
 
   const {
-    reset,
     register,
     handleSubmit,
-    control,
     watch,
     formState: { errors },
   } = formMethods;
@@ -107,29 +107,7 @@ const AddPositionForm = (props: any) => {
                 <Input type="text" placeholder="AAPL" {...register("symbol")} />
               </div>
               <div className={styles.formItem}>
-                <FormLabel>Date</FormLabel>
-                <Controller
-                  control={control}
-                  name="date"
-                  rules={{
-                    required: "Please enter quantity",
-                    validate: {
-                      equals: (password) =>
-                        password !== "password123" ||
-                        "Choose a more secure password",
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
-                    <DatePicker
-                      wrapperClassName={styles.datePicker}
-                      dateFormat="dd/MM/yyyy"
-                      todayButton="Today"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      selected={value}
-                    />
-                  )}
-                />
+                <DatePickerComponent title="Date" name="date" />
               </div>
             </div>
             <div className={styles.rowGroup}>
@@ -143,21 +121,7 @@ const AddPositionForm = (props: any) => {
             {isOption && (
               <div className={styles.rowGroup}>
                 <div className={styles.formItem}>
-                  <FormLabel>Expiration Date</FormLabel>
-                  <Controller
-                    control={control}
-                    name="expiryDate"
-                    render={({ field: { onChange, onBlur, value, ref } }) => (
-                      <DatePicker
-                        wrapperClassName={styles.datePicker}
-                        dateFormat="dd/MM/yyyy"
-                        todayButton="Today"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        selected={value}
-                      />
-                    )}
-                  />
+                  <DatePickerComponent title="Expiry Date" name="expiryDate" />
                 </div>
                 <div className={styles.formItem}>
                   <NumberComponent name={Fields.strike} />
