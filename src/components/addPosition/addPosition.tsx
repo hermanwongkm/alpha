@@ -1,3 +1,6 @@
+import { useMutation } from "urql";
+import React, { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import {
   FormControl,
   FormLabel,
@@ -5,14 +8,12 @@ import {
   Button,
   Select,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useMutation } from "urql";
 
 import styles from "./addTransaction.module.css";
 import NumberComponent from "../simpleComponents/numberComponent/NumberComponent";
 import RadioComponent from "../simpleComponents/radioComponent/RadioComponent";
 import DatePickerComponent from "../simpleComponents/datePickerComponent/DatePickerComponent";
+import DropDownComponent from "../simpleComponents/dropDownComponent/DropDownComponent";
 
 enum Fields {
   positionSize = "size",
@@ -83,19 +84,25 @@ const AddPositionForm = (props: any) => {
             <RadioComponent name="action" options={actionOptions} />
             <div className={styles.rowGroup}>
               <div className={styles.formItem}>
-                <FormLabel>Type</FormLabel>
-                <Select placeholder="Select type" {...register("type")}>
-                  <option value="stock">Stock</option>
-                  <option value="option">Options</option>
-                </Select>
+                <DropDownComponent
+                  title="Type"
+                  name="type"
+                  options={[
+                    { value: "stock", title: "Stock" },
+                    { value: "option", title: "Option" },
+                  ]}
+                />
               </div>
               {isOption && (
                 <div className={styles.formItem}>
-                  <FormLabel>Option type</FormLabel>
-                  <Select placeholder="Select type" {...register("optionType")}>
-                    <option value="call">Call</option>
-                    <option value="put">Put</option>
-                  </Select>
+                  <DropDownComponent
+                    title="Option Type"
+                    name="optionType"
+                    options={[
+                      { value: "call", title: "Call" },
+                      { value: "put", title: "Put" },
+                    ]}
+                  />
                 </div>
               )}
             </div>
