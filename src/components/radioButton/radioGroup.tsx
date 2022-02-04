@@ -1,11 +1,17 @@
-import React from 'react';
-import { useRadioGroup, FormControl } from '@chakra-ui/react';
-import RadioCard from './radioCard';
+import React from "react";
+import { useRadioGroup } from "@chakra-ui/react";
+import RadioCard from "./radioCard";
 
-import styles from './radioButton.module.css';
+import styles from "./radioButton.module.css";
+import { IRadioGroupOptions } from "../simpleComponents/RadioComponent";
 
-const RadioGroup = (props: any) => {
-  const { isRequired, onChange, options, test } = props;
+interface IRadioGrouptProps {
+  options: IRadioGroupOptions[];
+  onChange: (value: string) => void;
+}
+
+const RadioGroup = (props: IRadioGrouptProps) => {
+  const { onChange, options } = props;
 
   const { getRadioProps, getRootProps } = useRadioGroup({
     defaultValue: options[0].value,
@@ -16,18 +22,17 @@ const RadioGroup = (props: any) => {
   const group = getRootProps();
 
   return (
-    <FormControl isRequired={isRequired}>
-      <div className={styles.radioGroup}>
-        {options.map((value) => {
-          const radio = getRadioProps({ value: value.value });
-          return (
-            <RadioCard buttonColor={value.color} key={value.value} {...radio}>
-              {value.value}
-            </RadioCard>
-          );
-        })}
-      </div>
-    </FormControl>
+    <div className={styles.radioGroup}>
+      {options.map((value) => {
+        //This will return various props like `isChecked`, `onChange`, name and value etc.
+        const radio = getRadioProps({ value: value.value });
+        return (
+          <RadioCard buttonColor={value.color} key={value.value} {...radio}>
+            {value.value}
+          </RadioCard>
+        );
+      })}
+    </div>
   );
 };
 

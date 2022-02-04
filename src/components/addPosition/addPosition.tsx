@@ -2,11 +2,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  NumberInput,
-  NumberInputField,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInputStepper,
   Button,
   Select,
 } from "@chakra-ui/react";
@@ -17,9 +12,8 @@ import { useMutation } from "urql";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./addTransaction.module.css";
-import RadioGroup from "../radioButton/radioGroup";
 import NumberComponent from "../simpleComponents/numberComponent/NumberComponent";
-
+import RadioComponent from "../simpleComponents/RadioComponent";
 enum Fields {
   positionSize = "size",
   price = "price",
@@ -58,6 +52,7 @@ const AddPositionForm = (props: any) => {
   const [result1, executeMutation] = useMutation(createTransaction);
 
   const isOption = watch("type") === "option";
+
   const actionOptions = [
     { value: "Buy", color: "#28A745" },
     { value: "Sell", color: "#DC3545" },
@@ -87,20 +82,7 @@ const AddPositionForm = (props: any) => {
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
         <FormProvider {...formMethods}>
           <FormControl>
-            <div>
-              <Controller
-                control={control}
-                name="action"
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <RadioGroup
-                    name="action"
-                    control={control}
-                    onChange={onChange}
-                    options={actionOptions}
-                  />
-                )}
-              />
-            </div>
+            <RadioComponent name="action" options={actionOptions} />
             <div className={styles.rowGroup}>
               <div className={styles.formItem}>
                 <FormLabel>Type</FormLabel>
