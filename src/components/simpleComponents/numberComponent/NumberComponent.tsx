@@ -1,3 +1,5 @@
+import React from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import {
   NumberInput,
   NumberInputField,
@@ -8,8 +10,6 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
-import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
 
 interface INumberComponentProps {
   name: string;

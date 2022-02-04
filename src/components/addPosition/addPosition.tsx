@@ -6,11 +6,9 @@ import {
   Select,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import DatePicker from "react-datepicker";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import "react-datepicker/dist/react-datepicker.css";
 import styles from "./addTransaction.module.css";
 import NumberComponent from "../simpleComponents/numberComponent/NumberComponent";
 import RadioComponent from "../simpleComponents/radioComponent/RadioComponent";
