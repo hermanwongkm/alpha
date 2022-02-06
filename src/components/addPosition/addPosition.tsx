@@ -1,25 +1,33 @@
 import { useMutation } from "urql";
 import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Select,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 
 import styles from "./addTransaction.module.css";
 import NumberComponent from "../simpleComponents/numberComponent/NumberComponent";
 import RadioComponent from "../simpleComponents/radioComponent/RadioComponent";
 import DatePickerComponent from "../simpleComponents/datePickerComponent/DatePickerComponent";
 import DropDownComponent from "../simpleComponents/dropDownComponent/DropDownComponent";
+import TableComponent from "../simpleComponents/tableComponent/TableComponent";
 
 enum Fields {
-  positionSize = "size",
-  price = "price",
-  strike = "strike",
+  POSITION_SIZE = "size",
+  PRICE = "price",
+  STRIKE = "strike",
 }
+
+const tableColumnConfig = [
+  {
+    title: "Size",
+    key: Fields.POSITION_SIZE,
+    width: "1fr",
+  },
+  {
+    title: "Price",
+    key: Fields.PRICE,
+    width: "1fr",
+  },
+];
 
 const AddPositionForm = (props: any) => {
   const formMethods = useForm({
@@ -117,10 +125,10 @@ const AddPositionForm = (props: any) => {
             </div>
             <div className={styles.rowGroup}>
               <div className={styles.formItem}>
-                <NumberComponent name={Fields.positionSize} />
+                <NumberComponent name={Fields.POSITION_SIZE} />
               </div>
               <div className={styles.formItem}>
-                <NumberComponent name={Fields.price} />
+                <NumberComponent name={Fields.PRICE} />
               </div>
             </div>
             {isOption && (
@@ -129,7 +137,7 @@ const AddPositionForm = (props: any) => {
                   <DatePickerComponent title="Expiry Date" name="expiryDate" />
                 </div>
                 <div className={styles.formItem}>
-                  <NumberComponent name={Fields.strike} />
+                  <NumberComponent name={Fields.STRIKE} />
                 </div>
               </div>
             )}
@@ -145,6 +153,9 @@ const AddPositionForm = (props: any) => {
         >
           Submit
         </Button>
+        <div style={{ marginTop: "20px" }}>
+          <TableComponent headers={tableColumnConfig} />
+        </div>
       </form>
     </div>
   );

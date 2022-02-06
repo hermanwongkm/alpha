@@ -1,0 +1,11 @@
+
+.wrapper {
+  display:grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 10px;
+  background-color: bisque;
+}
+
+.entry{
+  background-color: beige;
+}
