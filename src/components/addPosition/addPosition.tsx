@@ -18,14 +18,33 @@ enum Fields {
 
 const tableColumnConfig = [
   {
-    title: "Size",
+    value: "Size",
     key: Fields.POSITION_SIZE,
     width: "1fr",
   },
   {
-    title: "Price",
+    value: "Price",
     key: Fields.PRICE,
     width: "1fr",
+  },
+];
+
+const tableData = [
+  {
+    value: "123",
+    key: Fields.POSITION_SIZE,
+  },
+  {
+    value: "456",
+    key: Fields.PRICE,
+  },
+  {
+    value: "123",
+    key: Fields.POSITION_SIZE,
+  },
+  {
+    value: "456",
+    key: Fields.PRICE,
   },
 ];
 
@@ -154,7 +173,7 @@ const AddPositionForm = (props: any) => {
           Submit
         </Button>
         <div style={{ marginTop: "20px" }}>
-          <TableComponent headers={tableColumnConfig} />
+          <TableComponent headers={tableColumnConfig} dataSource={tableData} />
         </div>
       </form>
     </div>

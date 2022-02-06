@@ -4,34 +4,43 @@ import { Alert, AlertIcon } from "@chakra-ui/react";
 import styles from "./TableComponent.module.css";
 
 interface ITableComponentProps {
-  name: string;
   headers: IColumnHeader[];
+  dataSource: ITableData[];
 }
-
+interface ITableData {
+  value: string;
+  key: string;
+}
 interface IColumnHeader {
-  title: string;
+  value: string;
   key: string;
   width: string;
 }
 
-const generateColumn = () => {
-  return "1fr 1fr 2fr 1fr";
+const generateColumn = (columnHeaders: IColumnHeader[]) => {
+  return columnHeaders.reduce((acc, curr) => {
+    return acc + `${curr.width} `;
+  }, "");
 };
 
-const x = 4;
+const generateRow = (value: string) => {
+  return <div>{value}</div>;
+};
+
 const TableComponent = (props: ITableComponentProps) => {
   return (
     <div
       className={styles.wrapper}
-      style={{ gridTemplateColumns: generateColumn() }}
+      style={{
+        gridTemplateColumns: `${generateColumn(props.headers)}`,
+      }}
     >
-      <div className={styles.entry}>1</div>
-      <div className={styles.entry}>2</div>
-      <div className={styles.entry}>3</div>
-      <div className={styles.entry}>4</div>
-      <div className={styles.entry}>5</div>
-      <div className={styles.entry}>6</div>
-      <div className={styles.entry}>7</div>
+      {props.headers.map((header) => {
+        return generateRow(header.value);
+      })}
+      {props.dataSource.map((data) => {
+        return generateRow(data.value);
+      })}
     </div>
   );
 };
