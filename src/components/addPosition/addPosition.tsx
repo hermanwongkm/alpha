@@ -172,7 +172,7 @@ const AddPositionForm = (props: any) => {
         >
           Submit
         </Button>
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
           <TableComponent headers={tableColumnConfig} dataSource={tableData} />
         </div>
       </form>

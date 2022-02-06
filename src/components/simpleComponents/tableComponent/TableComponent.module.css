@@ -2,10 +2,18 @@
 .wrapper {
   display:grid;
   grid-template-columns: repeat(3, auto);
-  grid-gap: 10px;
-  background-color: bisque;
+  background-color: #fefefe;
 }
 
+.tableHeader {
+  color: #9DA9B7;
+  /* background-color: aliceblue; */
+  border-bottom: 0.1rem solid #EEF0F2;
+  padding: 1rem;
+  font-weight: 500;
+}
 .entry{
-  background-color: beige;
+  /* background-color: beige; */
+  padding: 1rem;
+  border-bottom: 0.1rem solid #EEF0F2;
 }

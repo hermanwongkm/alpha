@@ -23,10 +23,13 @@ const generateColumn = (columnHeaders: IColumnHeader[]) => {
   }, "");
 };
 
-const generateRow = (value: string) => {
-  return <div>{value}</div>;
+const generateHeaders = (value: string) => {
+  return <div className={styles.tableHeader}>{value}</div>;
 };
 
+const generateRow = (value: string) => {
+  return <div className={styles.entry}>{value}</div>;
+};
 const TableComponent = (props: ITableComponentProps) => {
   return (
     <div
@@ -35,9 +38,11 @@ const TableComponent = (props: ITableComponentProps) => {
         gridTemplateColumns: `${generateColumn(props.headers)}`,
       }}
     >
-      {props.headers.map((header) => {
-        return generateRow(header.value);
-      })}
+      <div style={{ display: "contents" }}>
+        {props.headers.map((header) => {
+          return generateHeaders(header.value);
+        })}
+      </div>
       {props.dataSource.map((data) => {
         return generateRow(data.value);
       })}
