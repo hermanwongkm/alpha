@@ -1,0 +1,15 @@
+.wrapper{
+  cursor: pointer;
+  height: 30px;
+  box-sizing: content-box;
+  background-color: rgb(255, 243, 132);
+  border: 3.2px solid white;
+  transform: translate(-50%, -125%) rotate(135deg);
+  border-radius: 80% 0px 55% 50% / 55% 0px 80% 50%;
+  box-shadow: rgba(0, 0, 0, 0.15) 4px -4px 8px 0px;
+  width: 30px;
+}
+
+.iconWrapper{
+  transform: rotate(-135deg);
+}

@@ -1,11 +1,8 @@
 import type { NextPage } from "next";
 import GoogleMapReact from "google-map-react";
+import FoodIconComponent from "../components/mapComponents/foodIconComponent/FoodIconComponent";
 
-const AnyReactComponent = ({ text }) => (
-  <div style={{ width: "200px", backgroundColor: "red" }}>{text}</div>
-);
-
-const googleToken = "";
+const googleToken = "AIzaSyBwzlcY298eqMx5CL4wfReweDtz_Twafdc";
 const FoodMap: NextPage = () => {
   return (
     <>
@@ -14,16 +11,12 @@ const FoodMap: NextPage = () => {
         <GoogleMapReact
           bootstrapURLKeys={{ key: googleToken }}
           defaultCenter={{
-            lat: 10.99835602,
-            lng: 77.01502627,
+            lat: 1.3169179410827139,
+            lng: 103.7574110548476,
           }}
           defaultZoom={11}
         >
-          <AnyReactComponent
-            lat={10.99835602}
-            lng={77.01502627}
-            text="My Marker"
-          />
+          <FoodIconComponent lat={1.3169179410827139} lng={103.7574110548476} />
         </GoogleMapReact>
       </div>
     </>
