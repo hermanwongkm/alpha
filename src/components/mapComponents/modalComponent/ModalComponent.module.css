@@ -1,0 +1,6 @@
+.wrapper{
+  background-color: aqua;
+  position: absolute;
+  bottom:67px;
+  transform: translate(50%), rotate(-135deg);
+}

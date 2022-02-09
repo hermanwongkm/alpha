@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import GoogleMapReact from "google-map-react";
 import FoodIconComponent from "../components/mapComponents/foodIconComponent/FoodIconComponent";
+import ModalComponent from "../components/mapComponents/modalComponent/ModalComponent";
 
 const googleToken = "AIzaSyBwzlcY298eqMx5CL4wfReweDtz_Twafdc";
 const FoodMap: NextPage = () => {
