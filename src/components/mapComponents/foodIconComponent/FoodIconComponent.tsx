@@ -1,6 +1,5 @@
 import React from "react";
 
-import type { Image } from "next";
 import styles from "./FoodIconComponent.module.css";
 import ModalComponent from "../modalComponent/ModalComponent";
 
@@ -12,7 +11,7 @@ const FoodIconComponent = (props: any) => {
         <img
           src="./bbq_icon.svg"
           alt="next"
-          style={{ height: 20, width: 20 }}
+          style={{ height: 18, width: 18 }}
         />
       </div>
     </div>

@@ -1,15 +1,16 @@
 .wrapper{
   cursor: pointer;
-  height: 30px;
+  height: 25px;
+  width: 25px;
   box-sizing: content-box;
   background-color: rgb(255, 243, 132);
   border: 3.2px solid white;
   /* Initially any map object has its top left corner at lat lng coordinates. It's up to you to set the object origin to 0,0 coordinates.
-  so that's why you need this translate. To center it, it is -50,-50 but since we rotate it, it is another value */
+  so that's why you need this translate. To center it, it is -50,-50  because we want to move it up (of its size by 50% and right 50%)
+ but since we rotate it, it is another value */
   transform: translate(-50%, -125%) rotate(135deg);
-  /* border-radius: 80% 0px 55% 50% / 55% 0px 80% 50%; */
+  border-radius: 80% 0px 55% 50% / 55% 0px 80% 50%;
   box-shadow: rgba(0, 0, 0, 0.15) 4px -4px 8px 0px;
-  width: 30px;
   position: relative;
 }
 
