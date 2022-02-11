@@ -1,2 +1,6 @@
 .wrapper {
+  /* The reason why there's no need for this to be relative is because
+  google map itself has a position absolute but i am still gonna put
+  a position relative for my sanity */
+  position: relative;
 }

@@ -8,8 +8,8 @@ import styles from "./MarkerComponent.module.css";
 const MarkerComponent = (props: any) => {
   return (
     <div className={styles.wrapper}>
-      <FoodIconComponent></FoodIconComponent>
       <ModalComponent></ModalComponent>
+      <FoodIconComponent></FoodIconComponent>
     </div>
   );
 };
