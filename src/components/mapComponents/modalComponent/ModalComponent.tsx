@@ -16,8 +16,8 @@ const ModalComponent = (props: any) => {
         </div>
         <p className={styles.ratingTitle}>Rating:</p>
         <div className={styles.rating}>4.7 ★★★★★</div>
+        <div className={styles.modalTail}></div>
       </div>
-      <div className={styles.modalTail}></div>
     </>
   );
 };

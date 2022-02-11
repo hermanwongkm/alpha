@@ -1,7 +1,7 @@
 .wrapper {
   position: absolute;
-  transform: translate(-50%);
-  bottom: 42px;
+  transform: translate(-50%); /* move itself 50% to center it, rmb that starting point is top left */
+  bottom: 48px;
   font-size: 1rem;
   width: 150px;
   padding: 1rem;
@@ -42,11 +42,11 @@
 }
 
 .modalTail {
+  position: absolute;
   height: 10px;
   width: 10px;
-  position: absolute;
   background-color: white;
-  left: calc(50% - 5px);
+  left: calc(50% - 5px); /* 50% - half of width becuz it is 10px long*/
+  bottom: -5px;
   transform: rotate(45deg);
-  bottom:40px;
 }

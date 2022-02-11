@@ -11,7 +11,6 @@
   transform: translate(-50%, -125%) rotate(135deg);
   border-radius: 80% 0px 55% 50% / 55% 0px 80% 50%;
   box-shadow: rgba(0, 0, 0, 0.15) 4px -4px 8px 0px;
-  position: relative;
 }
 
 .iconWrapper{
