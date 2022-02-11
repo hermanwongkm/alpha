@@ -5,11 +5,18 @@ import FoodIconComponent from "../foodIconComponent/FoodIconComponent";
 
 import styles from "./MarkerComponent.module.css";
 
-const MarkerComponent = (props: any) => {
+interface MarkerComponentProps {
+  isModalOpen: boolean;
+  lat: number;
+  lng: number;
+  entry: any;
+}
+
+const MarkerComponent = (props: MarkerComponentProps) => {
   return (
     <div className={styles.wrapper}>
-      <ModalComponent></ModalComponent>
-      <FoodIconComponent></FoodIconComponent>
+      {props.isModalOpen ? <ModalComponent entry={props.entry} /> : null}
+      <FoodIconComponent />
     </div>
   );
 };

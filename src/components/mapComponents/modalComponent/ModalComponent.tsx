@@ -2,11 +2,15 @@ import React from "react";
 
 import styles from "./ModalComponent.module.css";
 
-const ModalComponent = (props: any) => {
+interface ModalComponentProps {
+  entry: any;
+}
+
+const ModalComponent = (props: ModalComponentProps) => {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.title}>BirdFolks of time</div>
+        <div className={styles.title}>{props.entry.title}</div>
         <div className={styles.address}>
           Block 487 Segar Road #06-554, 670487
         </div>
