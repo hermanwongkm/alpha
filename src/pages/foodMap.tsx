@@ -1,3 +1,4 @@
+import React from "react";
 import type { NextPage } from "next";
 import GoogleMapReact from "google-map-react";
 
@@ -26,6 +27,9 @@ const data = [
 
 const googleToken = "AIzaSyBwzlcY298eqMx5CL4wfReweDtz_Twafdc";
 const FoodMap: NextPage = () => {
+  const [openModalIndex, setOpenModal] = React.useState<null | number>(null);
+
+  const setOpenModalIndex = (index: number) => setOpenModal(index);
   return (
     <>
       <>Start of Google Map</>
@@ -40,8 +44,9 @@ const FoodMap: NextPage = () => {
         >
           {data.map((dataPoint) => (
             <MarkerComponent
-              isModalOpen={true}
-              key={dataPoint.id}
+              setOpenModal={setOpenModalIndex}
+              isModalOpen={openModalIndex === dataPoint.id}
+              index={dataPoint.id}
               entry={dataPoint.entry}
               lat={dataPoint.lat}
               lng={dataPoint.lng}
