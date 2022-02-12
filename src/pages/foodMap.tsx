@@ -25,17 +25,17 @@ const data = [
   },
 ];
 
-const googleToken = "AIzaSyBwzlcY298eqMx5CL4wfReweDtz_Twafdc";
 const FoodMap: NextPage = () => {
   const [openModalIndex, setOpenModal] = React.useState<null | number>(null);
 
   const setOpenModalIndex = (index: number) => setOpenModal(index);
+  console.log(process.env.NEXT_PUBLIC_GOOGLE_TOKEN);
   return (
     <>
       <>Start of Google Map</>
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: googleToken }}
+          bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_TOKEN }}
           defaultCenter={{
             lat: 1.3169179410827139,
             lng: 103.7574110548476,
@@ -44,6 +44,7 @@ const FoodMap: NextPage = () => {
         >
           {data.map((dataPoint) => (
             <MarkerComponent
+              key={dataPoint.id}
               setOpenModal={setOpenModalIndex}
               isModalOpen={openModalIndex === dataPoint.id}
               index={dataPoint.id}
