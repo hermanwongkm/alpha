@@ -29,7 +29,6 @@ const FoodMap: NextPage = () => {
   const [openModalIndex, setOpenModal] = React.useState<null | number>(null);
 
   const setOpenModalIndex = (index: number) => setOpenModal(index);
-  console.log(process.env.NEXT_PUBLIC_GOOGLE_TOKEN);
   return (
     <>
       <>Start of Google Map</>
@@ -41,6 +40,8 @@ const FoodMap: NextPage = () => {
             lng: 103.7574110548476,
           }}
           defaultZoom={11}
+          onClick={() => setOpenModal(null)}
+          options={{ scrollwheel: true, clickableIcons: false }}
         >
           {data.map((dataPoint) => (
             <MarkerComponent
