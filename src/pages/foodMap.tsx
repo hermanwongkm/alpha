@@ -29,25 +29,34 @@ const data = [
   },
 ];
 
+const MAP_DEFAULT_SETTINGS = {
+  zoom: 11,
+  center: {
+    lat: 1.352083,
+    lng: 103.819839,
+  },
+  mapOptions: {
+    scrollwheel: true,
+    clickableIcons: false,
+  },
+};
+
 const FoodMap: NextPage = () => {
   const [openModalIndex, setOpenModal] = React.useState<null | number>(null);
 
   const setOpenModalIndex = (index: number) => setOpenModal(index);
+
   return (
     <>
-      <>Start of Google Map</>
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
           bootstrapURLKeys={{
-            key: process.env.NEXT_PUBLIC_GOOGLE_TOKEN ?? "Please input key",
+            key: process.env.NEXT_PUBLIC_GOOGLE_TOKEN ?? "input key",
           }}
-          defaultCenter={{
-            lat: 1.3169179410827139,
-            lng: 103.7574110548476,
-          }}
-          defaultZoom={11}
+          defaultCenter={MAP_DEFAULT_SETTINGS.center}
+          defaultZoom={MAP_DEFAULT_SETTINGS.zoom}
+          options={MAP_DEFAULT_SETTINGS.mapOptions}
           onClick={() => setOpenModal(null)}
-          options={{ scrollwheel: true, clickableIcons: false }}
         >
           {data.map((dataPoint) => (
             <MarkerComponent

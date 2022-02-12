@@ -8,10 +8,10 @@ import styles from "./MarkerComponent.module.css";
 interface MarkerComponentProps {
   index: number;
   isModalOpen: boolean;
-  lat: number;
-  lng: number;
   entry: IModalEntry;
   setOpenModal: (index: number) => void;
+  lat: number;
+  lng: number;
 }
 
 const MarkerComponent = (props: MarkerComponentProps) => {
