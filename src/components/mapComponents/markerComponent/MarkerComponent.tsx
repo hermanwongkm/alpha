@@ -1,6 +1,6 @@
 import React from "react";
 
-import ModalComponent from "../modalComponent/ModalComponent";
+import ModalComponent, { IModalEntry } from "../modalComponent/ModalComponent";
 import FoodIconComponent from "../foodIconComponent/FoodIconComponent";
 
 import styles from "./MarkerComponent.module.css";
@@ -10,7 +10,7 @@ interface MarkerComponentProps {
   isModalOpen: boolean;
   lat: number;
   lng: number;
-  entry: any;
+  entry: IModalEntry;
   setOpenModal: (index: number) => void;
 }
 

@@ -12,6 +12,8 @@ const data = [
     entry: {
       title: "BirdFolks",
       description: "This is a description",
+      address: "Block 487 Segar Road #06-554, 670487",
+      rating: 4.7,
     },
   },
   {
@@ -21,6 +23,8 @@ const data = [
     entry: {
       title: "San Francisco",
       description: "This is a description",
+      address: "Block 487 Segar Road #06-554, 670487",
+      rating: 4.7,
     },
   },
 ];
@@ -34,7 +38,9 @@ const FoodMap: NextPage = () => {
       <>Start of Google Map</>
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_TOKEN }}
+          bootstrapURLKeys={{
+            key: process.env.NEXT_PUBLIC_GOOGLE_TOKEN ?? "Please input key",
+          }}
           defaultCenter={{
             lat: 1.3169179410827139,
             lng: 103.7574110548476,

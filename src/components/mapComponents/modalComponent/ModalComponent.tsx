@@ -3,7 +3,14 @@ import React from "react";
 import styles from "./ModalComponent.module.css";
 
 interface ModalComponentProps {
-  entry: any;
+  entry: IModalEntry;
+}
+
+export interface IModalEntry {
+  title: string;
+  address: string;
+  description: string;
+  rating: number;
 }
 
 const ModalComponent = (props: ModalComponentProps) => {

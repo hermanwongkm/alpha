@@ -965,6 +965,13 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.0.7.tgz"
   integrity sha512-3Zi2LGbCLDz4IIL7ir6wD0u/ggHotLkK5SlVzFzTcYaNgPR4MAt/9JYZqXWKcofPWEoptfpnCJU8Bq9sxw8QUg==
 
+"@types/google-map-react@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@types/google-map-react/-/google-map-react-2.1.4.tgz#b3021415f285fce1d1d98da4c7b524960ddea902"
+  integrity sha512-2510nBV6Jnyr34x4W39VlhGwspDGG+8/7TSKXd8blUlWEAvmep+qjl92gWacSUipZqdngaymoCOJ1Te5SkUqag==
+  dependencies:
+    "@types/react" "*"
+
 "@types/json-schema@^7.0.9":
   version "7.0.9"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.9.tgz#97edc9037ea0c38585320b28964dde3b39e4660d"
