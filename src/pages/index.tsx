@@ -3,7 +3,7 @@ import Head from "next/head";
 import Header from "../components/nav/header";
 import Footer from "../components/footer/footer";
 import AddPositionForm from "../components/addPosition/addPosition";
-import { gql, useMutation, useQuery } from "urql";
+import { gql, useQuery } from "urql";
 import testQuery from "../graphql/queries";
 
 const Home: NextPage = () => {
@@ -19,27 +19,27 @@ const Home: NextPage = () => {
     }
   `;
 
+  const testQuery2 = `
+query { 
+  stockTransaction {
+      symbol
+      openPrice
+      openDate
+      closeDate
+      closePrice
+  } 
+}
+`;
+
   const [result, reexecuteQuery] = useQuery({
-    query: testQuery,
-    pause: true,
+    query: testQuery2,
+    pause: false,
   });
 
-  console.log(result.data);
-  const FEED_QUERY = gql`
-    {
-      feed {
-        links {
-          id
-          createdAt
-          url
-          description
-        }
-      }
-    }
-  `;
+  console.log(result);
 
   const { data, fetching, error } = result;
-  // console.log(data)
+  console.log(data);
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 

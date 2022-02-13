@@ -1,3 +1,5 @@
+// Projects also typically use static queries as seen in this folder
+
 //Queries:
 // export const GET_ALL_USERS = gql`
 //   query {
@@ -14,11 +16,12 @@
 const testQuery = `
 query { 
   stockTransaction {
-symbol
-openPrice
-openDate
-closeDate
-closePrice
-} }
+      symbol
+      openPrice
+      openDate
+      closeDate
+      closePrice
+  } 
+}
 `;
 export default testQuery;

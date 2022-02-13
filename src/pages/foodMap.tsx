@@ -3,8 +3,10 @@ import type { NextPage } from "next";
 import GoogleMapReact from "google-map-react";
 
 import MarkerComponent from "../components/mapComponents/markerComponent/MarkerComponent";
+import { useQuery } from "urql";
+import getLocations from "../graphql/queries/foodMap/getLocations";
 
-const data = [
+const hardCodedData = [
   {
     id: 1,
     lat: 1.3169179410827139,
@@ -43,8 +45,19 @@ const MAP_DEFAULT_SETTINGS = {
 
 const FoodMap: NextPage = () => {
   const [openModalIndex, setOpenModal] = React.useState<null | number>(null);
-
   const setOpenModalIndex = (index: number) => setOpenModal(index);
+
+  const [result, reexecuteQuery] = useQuery({
+    query: getLocations,
+    pause: false,
+  });
+
+  console.log(result);
+
+  const { data, fetching, error } = result;
+  console.log(data);
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
 
   return (
     <>
@@ -58,7 +71,7 @@ const FoodMap: NextPage = () => {
           options={MAP_DEFAULT_SETTINGS.mapOptions}
           onClick={() => setOpenModal(null)}
         >
-          {data.map((dataPoint) => (
+          {hardCodedData.map((dataPoint) => (
             <MarkerComponent
               key={dataPoint.id}
               setOpenModal={setOpenModalIndex}
