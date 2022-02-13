@@ -2,10 +2,12 @@ const getLocations = `
   query { 
     foodMapLocations {
         id,
-        title,
-        description,
-        address,
-        rating
+        entry{
+          title,
+          description,
+          address,
+          rating
+        }
     }
   }
 `;
