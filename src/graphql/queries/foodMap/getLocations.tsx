@@ -2,6 +2,8 @@ const getLocations = `
   query { 
     foodMapLocations {
         id,
+        lat,
+        long,
         entry{
           title,
           description,
