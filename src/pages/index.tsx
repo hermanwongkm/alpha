@@ -1,42 +1,16 @@
+import { useQuery } from "urql";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Header from "../components/nav/header";
 import Footer from "../components/footer/footer";
 import AddPositionForm from "../components/addPosition/addPosition";
-import { gql, useQuery } from "urql";
-import testQuery from "../graphql/queries";
+import getStockTransactions from "../graphql/queries/stocks/getStocksTransactions";
 
 const Home: NextPage = () => {
-  const FEED_QUERY2 = gql`
-    {
-      stockTransaction {
-        symbol
-        openPrice
-        openDate
-        closeDate
-        closePrice
-      }
-    }
-  `;
-
-  const testQuery2 = `
-query { 
-  stockTransaction {
-      symbol
-      openPrice
-      openDate
-      closeDate
-      closePrice
-  } 
-}
-`;
-
   const [result, reexecuteQuery] = useQuery({
-    query: testQuery2,
+    query: getStockTransactions,
     pause: false,
   });
-
-  console.log(result);
 
   const { data, fetching, error } = result;
   console.log(data);
