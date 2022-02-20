@@ -1,14 +1,14 @@
-import { useQuery } from "urql";
+import React from "react";
 import type { NextPage } from "next";
+
 import Head from "next/head";
 import Header from "../components/nav/header";
 import Footer from "../components/footer/footer";
-import AddPositionForm from "../components/stocksComponents/addTransaction/addTransaction";
-import getStockTransactions from "../graphql/queries/stocks/getStocksTransactions";
+import StocksPage from "../components/stocksComponents";
 
-const Home: NextPage = () => {
+const Stocks: NextPage = () => {
   return (
-    <div>
+    <>
       <Head>
         <title>Alpha</title>
         <meta name="Alpha app" content="Alpha app" />
@@ -16,10 +16,10 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
-      <>Hello world</>
+      <StocksPage />
       <Footer />
-    </div>
+    </>
   );
 };
 
-export default Home;
+export default Stocks;

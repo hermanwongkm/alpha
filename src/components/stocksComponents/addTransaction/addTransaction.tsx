@@ -4,12 +4,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 
 import styles from "./addTransaction.module.css";
-import NumberComponent from "../simpleComponents/numberComponent/NumberComponent";
-import RadioComponent from "../simpleComponents/radioComponent/RadioComponent";
-import DatePickerComponent from "../simpleComponents/datePickerComponent/DatePickerComponent";
-import DropDownComponent from "../simpleComponents/dropDownComponent/DropDownComponent";
-import TableComponent from "../simpleComponents/tableComponent/TableComponent";
-import addStockTransaction from "../../graphql/queries/addStocksTransactions";
+import NumberComponent from "../../simpleComponents/numberComponent/NumberComponent";
+import RadioComponent from "../../simpleComponents/radioComponent/RadioComponent";
+import DatePickerComponent from "../../simpleComponents/datePickerComponent/DatePickerComponent";
+import DropDownComponent from "../../simpleComponents/dropDownComponent/DropDownComponent";
+import TableComponent from "../../simpleComponents/tableComponent/TableComponent";
+import addStockTransaction from "../../../graphql/queries/addStocksTransactions";
 import moment from "moment";
 
 enum Fields {
@@ -50,7 +50,7 @@ const tableData = [
   },
 ];
 
-const AddPositionForm = (props: any) => {
+const AddTransaction = (props: any) => {
   const formMethods = useForm({
     defaultValues: {
       action: "BUY",
@@ -171,4 +171,4 @@ const AddPositionForm = (props: any) => {
   );
 };
 
-export default AddPositionForm;
+export default AddTransaction;

@@ -10,10 +10,10 @@ const MenuLink = () => {
       direction={["column", "row", "row", "row"]}
       pt={[4, 4, 0, 0]}
     >
-      <Link href={"breh"}>
+      <Link href={"foodMap"}>
         <Text display="block">Map</Text>
       </Link>
-      <Link href={"breh"}>
+      <Link href={"stocks"}>
         <Text display="block">Stocks</Text>
       </Link>
     </Stack>
