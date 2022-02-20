@@ -7,8 +7,18 @@ import { Fields } from "../addTransaction/addTransaction";
 
 const tableColumnConfig = [
   {
-    value: "Size",
-    key: Fields.POSITION_SIZE,
+    value: "Date",
+    key: Fields.DATE,
+    width: "1fr",
+  },
+  {
+    value: "Symbol",
+    key: Fields.SYMBOL,
+    width: "1fr",
+  },
+  {
+    value: "Type",
+    key: Fields.TYPE,
     width: "1fr",
   },
   {
@@ -17,8 +27,8 @@ const tableColumnConfig = [
     width: "1fr",
   },
   {
-    value: "Symbol",
-    key: Fields.SYMBOL,
+    value: "Size",
+    key: Fields.POSITION_SIZE,
     width: "1fr",
   },
 ];
@@ -31,7 +41,6 @@ const StocksTable = () => {
   });
 
   const { data, fetching, error } = result;
-  console.log(data);
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 

@@ -12,10 +12,12 @@ import addStockTransaction from "../../../graphql/queries/addStocksTransactions"
 import moment from "moment";
 
 export enum Fields {
+  DATE = "date",
   POSITION_SIZE = "size",
   PRICE = "price",
   STRIKE = "strike",
   SYMBOL = "symbol",
+  TYPE = "type",
 }
 
 const AddTransaction = (props: any) => {
@@ -34,7 +36,6 @@ const AddTransaction = (props: any) => {
   } = formMethods;
 
   const [result, executeMutation] = useMutation(addStockTransaction);
-  console.log(result);
   const isOption = watch("type") === "option";
 
   const actionOptions = [
