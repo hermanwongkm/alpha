@@ -1,5 +1,4 @@
 import React from "react";
-import { Alert, AlertIcon } from "@chakra-ui/react";
 
 import styles from "./TableComponent.module.css";
 

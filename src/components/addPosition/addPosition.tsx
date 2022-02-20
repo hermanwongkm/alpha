@@ -9,6 +9,8 @@ import RadioComponent from "../simpleComponents/radioComponent/RadioComponent";
 import DatePickerComponent from "../simpleComponents/datePickerComponent/DatePickerComponent";
 import DropDownComponent from "../simpleComponents/dropDownComponent/DropDownComponent";
 import TableComponent from "../simpleComponents/tableComponent/TableComponent";
+import addStockTransaction from "../../graphql/queries/addStocksTransactions";
+import moment from "moment";
 
 enum Fields {
   POSITION_SIZE = "size",
@@ -51,7 +53,7 @@ const tableData = [
 const AddPositionForm = (props: any) => {
   const formMethods = useForm({
     defaultValues: {
-      action: "buy",
+      action: "BUY",
       type: "stock",
     },
   });
@@ -63,38 +65,27 @@ const AddPositionForm = (props: any) => {
     formState: { errors },
   } = formMethods;
 
-  const createTransaction = `
-        mutation($symbol: String, $price: Float, $size: Int){
-            addStockTransaction(
-            symbol:$symbol,
-            openPrice: $price,
-            size: $size,
-            ){
-            symbol,
-            openPrice
-            }
-        }`;
-
-  const [result1, executeMutation] = useMutation(createTransaction);
-
+  const [result, executeMutation] = useMutation(addStockTransaction);
+  console.log(result);
   const isOption = watch("type") === "option";
 
   const actionOptions = [
-    { value: "Buy", color: "#28A745" },
-    { value: "Sell", color: "#DC3545" },
+    { value: "BUY", color: "#28A745" },
+    { value: "SELL", color: "#DC3545" },
   ];
 
   const onSubmit = (data: any) => {
     console.log(data);
     const transformedData = {
-      // action: data.action,
+      action: data.action,
       symbol: data.symbol,
       price: parseInt(data.price),
       size: parseInt(data.size),
-      // date: moment.utc(data.date).format(),
+      type: data.type,
+      date: moment.utc(data.date).format(),
       // expiryDate: data.expiryDate ? moment.utc(data.expiryDate).format() : null
     };
-    // console.log(transformedData);
+    console.log(transformedData);
     executeMutation(transformedData);
     // reset({ size: 2, price: 0, symbol: "Hello" });
   };
