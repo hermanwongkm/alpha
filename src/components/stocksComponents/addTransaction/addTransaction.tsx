@@ -15,6 +15,7 @@ export enum Fields {
   POSITION_SIZE = "size",
   PRICE = "price",
   STRIKE = "strike",
+  SYMBOL = "symbol",
 }
 
 const AddTransaction = (props: any) => {

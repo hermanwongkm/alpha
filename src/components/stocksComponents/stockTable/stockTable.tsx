@@ -16,28 +16,15 @@ const tableColumnConfig = [
     key: Fields.PRICE,
     width: "1fr",
   },
-];
-
-const tableData = [
   {
-    value: "123",
-    key: Fields.POSITION_SIZE,
-  },
-  {
-    value: "456",
-    key: Fields.PRICE,
-  },
-  {
-    value: "123",
-    key: Fields.POSITION_SIZE,
-  },
-  {
-    value: "456",
-    key: Fields.PRICE,
+    value: "Symbol",
+    key: Fields.SYMBOL,
+    width: "1fr",
   },
 ];
 
 const StocksTable = () => {
+  //urql is a GraphQL client that exposes a set of React components and hooks
   const [result, reexecuteQuery] = useQuery({
     query: getStockTransactions,
     pause: false,
@@ -51,7 +38,10 @@ const StocksTable = () => {
   return (
     <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
-        <TableComponent headers={tableColumnConfig} dataSource={tableData} />
+        <TableComponent
+          headers={tableColumnConfig}
+          dataSource={data.stockTransaction}
+        />
       </div>
     </div>
   );

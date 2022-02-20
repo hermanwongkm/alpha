@@ -1,4 +1,5 @@
 import React from "react";
+import { Fields } from "../../stocksComponents/addTransaction/addTransaction";
 
 import styles from "./TableComponent.module.css";
 
@@ -6,9 +7,10 @@ interface ITableComponentProps {
   headers: IColumnHeader[];
   dataSource: ITableData[];
 }
-interface ITableData {
-  value: string;
-  key: string;
+export interface ITableData {
+  [Fields.SYMBOL]: string;
+  [Fields.PRICE]: string;
+  [Fields.POSITION_SIZE]: string;
 }
 interface IColumnHeader {
   value: string;
@@ -29,6 +31,16 @@ const generateHeaders = (value: string) => {
 const generateRow = (value: string) => {
   return <div className={styles.entry}>{value}</div>;
 };
+
+const generateBody = (dataSource: ITableData[], headers: IColumnHeader[]) => {
+  return dataSource.flatMap((row) => {
+    return headers.map((header) => {
+      const value = row[header.key as keyof ITableData];
+      return generateRow(value);
+    });
+  });
+};
+
 const TableComponent = (props: ITableComponentProps) => {
   return (
     <div
@@ -42,9 +54,7 @@ const TableComponent = (props: ITableComponentProps) => {
           return generateHeaders(header.value);
         })}
       </div>
-      {props.dataSource.map((data) => {
-        return generateRow(data.value);
-      })}
+      {generateBody(props.dataSource, props.headers)}
     </div>
   );
 };
