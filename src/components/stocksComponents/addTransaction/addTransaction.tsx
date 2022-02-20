@@ -8,47 +8,14 @@ import NumberComponent from "../../simpleComponents/numberComponent/NumberCompon
 import RadioComponent from "../../simpleComponents/radioComponent/RadioComponent";
 import DatePickerComponent from "../../simpleComponents/datePickerComponent/DatePickerComponent";
 import DropDownComponent from "../../simpleComponents/dropDownComponent/DropDownComponent";
-import TableComponent from "../../simpleComponents/tableComponent/TableComponent";
 import addStockTransaction from "../../../graphql/queries/addStocksTransactions";
 import moment from "moment";
 
-enum Fields {
+export enum Fields {
   POSITION_SIZE = "size",
   PRICE = "price",
   STRIKE = "strike",
 }
-
-const tableColumnConfig = [
-  {
-    value: "Size",
-    key: Fields.POSITION_SIZE,
-    width: "1fr",
-  },
-  {
-    value: "Price",
-    key: Fields.PRICE,
-    width: "1fr",
-  },
-];
-
-const tableData = [
-  {
-    value: "123",
-    key: Fields.POSITION_SIZE,
-  },
-  {
-    value: "456",
-    key: Fields.PRICE,
-  },
-  {
-    value: "123",
-    key: Fields.POSITION_SIZE,
-  },
-  {
-    value: "456",
-    key: Fields.PRICE,
-  },
-];
 
 const AddTransaction = (props: any) => {
   const formMethods = useForm({
@@ -163,9 +130,6 @@ const AddTransaction = (props: any) => {
         >
           Submit
         </Button>
-        <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
-          <TableComponent headers={tableColumnConfig} dataSource={tableData} />
-        </div>
       </form>
     </div>
   );

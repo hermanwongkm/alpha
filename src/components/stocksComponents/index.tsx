@@ -1,9 +1,11 @@
 import { useQuery } from "urql";
 import React from "react";
+
 import AddTransaction from "./addTransaction/addTransaction";
 import getStockTransactions from "../../graphql/queries/stocks/getStocksTransactions";
+import StocksTable from "./stockTable/stockTable";
 
-const StocksPage = (props: any) => {
+const StocksPage = () => {
   const [result, reexecuteQuery] = useQuery({
     query: getStockTransactions,
     pause: false,
@@ -17,6 +19,7 @@ const StocksPage = (props: any) => {
   return (
     <div>
       <AddTransaction execute={reexecuteQuery} />
+      <StocksTable />
     </div>
   );
 };
