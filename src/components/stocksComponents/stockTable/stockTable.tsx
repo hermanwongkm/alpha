@@ -5,6 +5,7 @@ import getStockTransactions from "../../../graphql/queries/stocks/getStocksTrans
 import TableComponent from "../../simpleComponents/tableComponent/TableComponent";
 import { Fields } from "../addTransaction/addTransaction";
 import moment from "moment";
+import getStocksAggregate from "../../../graphql/queries/stocks/getStocksAggregate";
 
 const tableColumnConfig = [
   {
@@ -32,20 +33,35 @@ const tableColumnConfig = [
     key: Fields.POSITION_SIZE,
     width: "1fr",
   },
+  {
+    value: "Profit Or Loss",
+    key: Fields.PNL,
+    width: "1fr",
+  },
 ];
 
 const StocksTable = () => {
   //urql is a GraphQL client that exposes a set of React components and hooks
-  const [result, reexecuteQuery] = useQuery({
+  const [result] = useQuery({
     query: getStockTransactions,
     pause: false,
   });
+
+  const executeOnlyWhenCalled = () => {
+    const [resultAggregate] = useQuery({
+      query: getStocksAggregate,
+      variables: { symbol: "AAPL" },
+      pause: false,
+    });
+    return resultAggregate;
+  };
 
   const { data, fetching, error } = result;
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
   console.log(data);
-  console.log(moment.utc(1645366985055).format());
+  console.log(executeOnlyWhenCalled());
+
   return (
     <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>

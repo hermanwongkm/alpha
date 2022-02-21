@@ -18,6 +18,7 @@ export enum Fields {
   STRIKE = "strike",
   SYMBOL = "symbol",
   TYPE = "type",
+  PNL = "profitOrLoss",
 }
 
 const AddTransaction = (props: any) => {

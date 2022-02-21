@@ -6,6 +6,7 @@ const getStockTransactions = `
         date
         type
         size
+        profitOrLoss
         stockTransactionStream {
             version,
             type
