@@ -4,6 +4,7 @@ import getStockTransactions from "../../../graphql/queries/stocks/getStocksTrans
 
 import TableComponent from "../../simpleComponents/tableComponent/TableComponent";
 import { Fields } from "../addTransaction/addTransaction";
+import moment from "moment";
 
 const tableColumnConfig = [
   {
@@ -43,7 +44,8 @@ const StocksTable = () => {
   const { data, fetching, error } = result;
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-
+  console.log(data);
+  console.log(moment.utc(1645366985055).format());
   return (
     <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>

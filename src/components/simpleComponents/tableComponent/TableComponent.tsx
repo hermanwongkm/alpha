@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import { Fields } from "../../stocksComponents/addTransaction/addTransaction";
 
@@ -35,8 +36,16 @@ const generateRow = (value: string) => {
 const generateBody = (dataSource: ITableData[], headers: IColumnHeader[]) => {
   return dataSource.flatMap((row) => {
     return headers.map((header) => {
-      const value = row[header.key as keyof ITableData];
-      return generateRow(value);
+      if (header.key === Fields.DATE) {
+        //Todo Handle date properly
+        return generateRow(
+          moment
+            .utc(parseInt(row[header.key as keyof ITableData]))
+            .format("DD-MM-YYYY"),
+        );
+      } else {
+        return generateRow(row[header.key as keyof ITableData]);
+      }
     });
   });
 };
