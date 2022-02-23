@@ -4,8 +4,8 @@ import getStockTransactions from "../../../graphql/queries/stocks/getStocksTrans
 
 import TableComponent from "../../simpleComponents/tableComponent/TableComponent";
 import { Fields } from "../addTransaction/addTransaction";
-import moment from "moment";
 import getStocksAggregate from "../../../graphql/queries/stocks/getStocksAggregate";
+import getStockStreams from "../../../graphql/queries/stocks/getStockStreams";
 
 const tableColumnConfig = [
   {
@@ -47,25 +47,22 @@ const StocksTable = () => {
     pause: false,
   });
 
-  const executeOnlyWhenCalled = () => {
-    const [resultAggregate] = useQuery({
-      query: getStocksAggregate,
-      variables: { symbol: "AAPL" },
-      pause: false,
-    });
-    return resultAggregate;
-  };
+  const [resultAggregate, refetch] = useQuery({
+    query: getStocksAggregate,
+    variables: { symbol: "AAPL" },
+    pause: true,
+  });
 
+  console.log(resultAggregate);
   const { data, fetching, error } = result;
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
   console.log(data);
-  console.log(executeOnlyWhenCalled());
 
   return (
     <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
-        <div>Apple</div>
+        <div onClick={() => refetch()}>Apple</div>
         <TableComponent
           headers={tableColumnConfig}
           dataSource={data.stockTransaction}
