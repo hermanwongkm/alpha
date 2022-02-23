@@ -65,6 +65,7 @@ const StocksTable = () => {
   return (
     <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
+        <div>Apple</div>
         <TableComponent
           headers={tableColumnConfig}
           dataSource={data.stockTransaction}
