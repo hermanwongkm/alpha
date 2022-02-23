@@ -52,19 +52,34 @@ const generateBody = (dataSource: ITableData[], headers: IColumnHeader[]) => {
 
 const TableComponent = (props: ITableComponentProps) => {
   return (
-    <div
-      className={styles.wrapper}
-      style={{
-        gridTemplateColumns: `${generateColumn(props.headers)}`,
-      }}
-    >
-      <div style={{ display: "contents" }}>
-        {props.headers.map((header) => {
-          return generateHeaders(header.value);
-        })}
+    <>
+      <div
+        className={styles.wrapper}
+        style={{
+          gridTemplateColumns: `${generateColumn(props.parentHeaders)}`,
+        }}
+      >
+        <div style={{ display: "contents" }}>
+          {props.parentHeaders.map((header) => {
+            return generateHeaders(header.value);
+          })}
+        </div>
+        {generateBody(props.parentDataSource, props.parentHeaders)}
       </div>
-      {generateBody(props.dataSource, props.headers)}
-    </div>
+      <div
+        className={styles.wrapper}
+        style={{
+          gridTemplateColumns: `${generateColumn(props.headers)}`,
+        }}
+      >
+        <div style={{ display: "contents" }}>
+          {props.headers.map((header) => {
+            return generateHeaders(header.value);
+          })}
+        </div>
+        {generateBody(props.dataSource, props.headers)}
+      </div>
+    </>
   );
 };
 

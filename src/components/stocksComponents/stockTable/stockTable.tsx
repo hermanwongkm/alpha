@@ -40,32 +40,58 @@ const tableColumnConfig = [
   },
 ];
 
+const tableColumnParentConfig = [
+  {
+    value: "Symbol",
+    key: Fields.SYMBOL,
+    width: "1fr",
+  },
+  {
+    value: "Average Price",
+    key: Fields.PRICE,
+    width: "1fr",
+  },
+  {
+    value: "Size",
+    key: Fields.POSITION_SIZE,
+    width: "1fr",
+  },
+];
+
 const StocksTable = () => {
   //urql is a GraphQL client that exposes a set of React components and hooks
   const [result] = useQuery({
+    query: getStockStreams,
+    pause: false,
+  });
+  console.log(result);
+
+  const [result2] = useQuery({
     query: getStockTransactions,
     pause: false,
   });
+  console.log(result2);
 
   const [resultAggregate, refetch] = useQuery({
     query: getStocksAggregate,
     variables: { symbol: "AAPL" },
     pause: true,
   });
-
-  console.log(resultAggregate);
+  const { data: data2, fetching2, error2 } = result2;
   const { data, fetching, error } = result;
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
   console.log(data);
+  console.log(data2);
 
   return (
     <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
-        <div onClick={() => refetch()}>Apple</div>
         <TableComponent
+          parentHeaders={tableColumnParentConfig}
+          parentDataSource={data.stockTransactionStreamSchema}
           headers={tableColumnConfig}
-          dataSource={data.stockTransaction}
+          dataSource={data2.stockTransaction}
         />
       </div>
     </div>
