@@ -87,12 +87,12 @@ const StocksTable = () => {
   return (
     <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
-        <TableComponent
-          parentHeaders={tableColumnParentConfig}
-          parentDataSource={data.stockTransactionStreamSchema}
-          headers={tableColumnConfig}
-          dataSource={data2.stockTransaction}
-        />
+        <>
+          <TableComponent
+            headers={tableColumnConfig}
+            dataSource={data2.stockTransaction}
+          />
+        </>
       </div>
     </div>
   );
