@@ -40,11 +40,21 @@ const generateRow = (row: ITableData, headers: IColumnHeader[]) => {
 const RowComponent = (props: IRowComponentProps) => {
   const [isExpanded, setExpandTable] = React.useState<boolean>(false);
 
+  const test = async () => {
+    const x = await props.expandTableCallback();
+    console.log("Hello");
+  };
+
+  console.log("Row");
+  const { data, fetching, error } = props.expandTableCallbackData;
+  console.log(data);
+  console.log(error);
   return (
     <div>
       <div
         onClick={() => {
           setExpandTable(!isExpanded);
+          isExpanded && test();
         }}
         className={styles.wrapper}
         style={{
@@ -53,7 +63,9 @@ const RowComponent = (props: IRowComponentProps) => {
       >
         {generateRow(props.row, props.headers)}
       </div>
-      {isExpanded && <div>Fat Cow World</div>}
+      {isExpanded && (
+        <div>{data && data.stockTransactionsAggregateSchema.symbol}</div>
+      )}
     </div>
   );
 };

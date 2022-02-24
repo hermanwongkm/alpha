@@ -43,7 +43,15 @@ const TableComponent = (props: ITableComponentProps) => {
           })}
         </div>
         {props.dataSource.map((row, index) => {
-          return <RowComponent key={index} headers={props.headers} row={row} />;
+          return (
+            <RowComponent
+              key={index}
+              headers={props.headers}
+              row={row}
+              expandTableCallback={props.expandTableCallback}
+              expandTableCallbackData={props.expandTableCallbackData}
+            />
+          );
         })}
       </div>
     </>

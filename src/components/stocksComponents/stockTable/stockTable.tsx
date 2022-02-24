@@ -66,7 +66,7 @@ const StocksTable = () => {
   });
   console.log(result);
 
-  const [result2] = useQuery({
+  const [result2, getStockTransactionsForStream] = useQuery({
     query: getStockTransactions,
     pause: false,
   });
@@ -83,14 +83,22 @@ const StocksTable = () => {
   if (error) return <p>Oh no... {error.message}</p>;
   console.log(data);
   console.log(data2);
+  console.log(resultAggregate);
 
   return (
-    <div>
+    <div
+      onClick={() => {
+        console.log("abc");
+        console.log(refetch());
+      }}
+    >
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
         <>
           <TableComponent
             headers={tableColumnConfig}
             dataSource={data2.stockTransaction}
+            expandTableCallback={refetch}
+            expandTableCallbackData={resultAggregate}
           />
         </>
       </div>
