@@ -1,47 +1,26 @@
 import moment from "moment";
 import React, { useEffect } from "react";
 import { Fields } from "../../../stocksComponents/addTransaction/addTransaction";
-import TableComponent, { IColumnHeader, ITableData } from "../TableComponent";
+import TableComponent, {
+  IColumnHeader,
+  IExpandColumnHeader,
+  ITableData,
+} from "../TableComponent";
 
 import styles from "./RowComponent.module.css";
 
 export interface IRowComponentProps {
   headers: IColumnHeader[];
   row: ITableData;
+  expanded: boolean;
+  index: number;
+  expandTableHeaders?: IExpandColumnHeader[];
+  isExpandTableDataFetching: boolean;
+  expandTableCallbackData: any;
+  setExpandedCallback: (index: number | null) => void;
+  expandTableCallback: (symbol: string) => void;
 }
 
-const tableColumnConfig = [
-  {
-    value: "Date",
-    key: Fields.DATE,
-    width: "1fr",
-  },
-  {
-    value: "Symbol",
-    key: Fields.SYMBOL,
-    width: "1fr",
-  },
-  {
-    value: "Type",
-    key: Fields.TYPE,
-    width: "1fr",
-  },
-  {
-    value: "Price",
-    key: Fields.PRICE,
-    width: "1fr",
-  },
-  {
-    value: "Size",
-    key: Fields.POSITION_SIZE,
-    width: "1fr",
-  },
-  {
-    value: "Profit Or Loss",
-    key: Fields.PNL,
-    width: "1fr",
-  },
-];
 const generateColumn = (columnHeaders: IColumnHeader[]) => {
   return columnHeaders.reduce((acc, curr) => {
     return acc + `${curr.width} `;
@@ -70,28 +49,22 @@ const generateRow = (row: ITableData, headers: IColumnHeader[]) => {
 };
 
 const RowComponent = (props: IRowComponentProps) => {
-  const [isExpanded, setExpandTable] = React.useState<boolean>(false);
-
-  const test = () => {
-    console.log("Called change of state");
-    const x = props.expandTableCallback("AMD");
-  };
-
+  //I did not set expanded state here as i will do that eventually when i get redux
   useEffect(() => {
-    console.log("HELLO");
-    console.log({ isExpanded });
-    if (isExpanded) {
-      test();
+    if (props.expanded) {
+      props.expandTableCallback(props.row.symbol);
     }
-  }, [isExpanded]);
-
-  console.log(props.expandTableCallbackData);
+  }, [props.expanded]);
 
   return (
     <div>
       <div
         onClick={() => {
-          setExpandTable(!isExpanded);
+          if (props.expanded) {
+            props.setExpandedCallback(null);
+          } else {
+            props.setExpandedCallback(props.index);
+          }
         }}
         className={styles.wrapper}
         style={{
@@ -100,17 +73,15 @@ const RowComponent = (props: IRowComponentProps) => {
       >
         {generateRow(props.row, props.headers)}
       </div>
-      {isExpanded &&
-        (props.isFetchingExpandTable ? (
-          <div>Loading</div>
-        ) : (
-          <div>
-            <TableComponent
-              headers={tableColumnConfig}
-              dataSource={props.expandTableCallbackData.stockTransactions}
-            />
-          </div>
-        ))}
+      {props.expanded && (
+        <div>
+          <TableComponent
+            headers={props.expandTableHeaders}
+            dataSource={props.expandTableCallbackData}
+            isFetching={props.isExpandTableDataFetching}
+          />
+        </div>
+      )}
     </div>
   );
 };

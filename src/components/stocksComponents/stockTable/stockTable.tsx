@@ -1,10 +1,8 @@
 import { useQuery } from "urql";
 import React, { useEffect } from "react";
-import getStockTransactions from "../../../graphql/queries/stocks/getStocksTransactions";
 
 import TableComponent from "../../simpleComponents/tableComponent/TableComponent";
 import { Fields } from "../addTransaction/addTransaction";
-import getStocksAggregate from "../../../graphql/queries/stocks/getStocksAggregate";
 import getStockStreams from "../../../graphql/queries/stocks/getStockStreams";
 import getStocksTransactionsBySymbol from "../../../graphql/queries/stocks/getStocksTransactionsBySymbol";
 
@@ -81,11 +79,8 @@ const StocksTable = () => {
     reexecuteQuery();
   }, [stockTransactionsSymbol]);
 
-  const {
-    data: stockTransactionsData,
-    fetching: fetching3,
-    error3,
-  } = stockTransactionsBySymbol;
+  const { data: stockTransactionsData, fetching: fetching3 } =
+    stockTransactionsBySymbol;
   console.log(fetching3);
   const { data: stockStreamsData, fetching, error } = stockStreams;
   if (fetching) return <p>Loading...</p>;
@@ -97,10 +92,12 @@ const StocksTable = () => {
         <>
           <TableComponent
             headers={tableColumnParentConfig}
+            isFetching={fetching}
             dataSource={stockStreamsData.stockTransactionStreamSchema}
+            expandTableHeaders={tableColumnConfig}
             expandTableCallback={setStockTransactionsSymbol}
-            expandTableCallbackData={stockTransactionsData || []}
-            isFetchingExpandTable={fetching3}
+            expandTableCallbackData={stockTransactionsData?.stockTransactions}
+            isExpandTableDataFetching={fetching3}
           />
         </>
       </div>
