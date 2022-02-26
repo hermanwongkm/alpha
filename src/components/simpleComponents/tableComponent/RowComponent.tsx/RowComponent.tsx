@@ -1,7 +1,7 @@
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import { Fields } from "../../../stocksComponents/addTransaction/addTransaction";
-import { IColumnHeader, ITableData } from "../TableComponent";
+import TableComponent, { IColumnHeader, ITableData } from "../TableComponent";
 
 import styles from "./RowComponent.module.css";
 
@@ -10,6 +10,38 @@ export interface IRowComponentProps {
   row: ITableData;
 }
 
+const tableColumnConfig = [
+  {
+    value: "Date",
+    key: Fields.DATE,
+    width: "1fr",
+  },
+  {
+    value: "Symbol",
+    key: Fields.SYMBOL,
+    width: "1fr",
+  },
+  {
+    value: "Type",
+    key: Fields.TYPE,
+    width: "1fr",
+  },
+  {
+    value: "Price",
+    key: Fields.PRICE,
+    width: "1fr",
+  },
+  {
+    value: "Size",
+    key: Fields.POSITION_SIZE,
+    width: "1fr",
+  },
+  {
+    value: "Profit Or Loss",
+    key: Fields.PNL,
+    width: "1fr",
+  },
+];
 const generateColumn = (columnHeaders: IColumnHeader[]) => {
   return columnHeaders.reduce((acc, curr) => {
     return acc + `${curr.width} `;
@@ -40,21 +72,26 @@ const generateRow = (row: ITableData, headers: IColumnHeader[]) => {
 const RowComponent = (props: IRowComponentProps) => {
   const [isExpanded, setExpandTable] = React.useState<boolean>(false);
 
-  const test = async () => {
-    const x = await props.expandTableCallback();
-    console.log("Hello");
+  const test = () => {
+    console.log("Called change of state");
+    const x = props.expandTableCallback("AMD");
   };
 
-  console.log("Row");
-  const { data, fetching, error } = props.expandTableCallbackData;
-  console.log(data);
-  console.log(error);
+  useEffect(() => {
+    console.log("HELLO");
+    console.log({ isExpanded });
+    if (isExpanded) {
+      test();
+    }
+  }, [isExpanded]);
+
+  console.log(props.expandTableCallbackData);
+
   return (
     <div>
       <div
         onClick={() => {
           setExpandTable(!isExpanded);
-          isExpanded && test();
         }}
         className={styles.wrapper}
         style={{
@@ -63,9 +100,17 @@ const RowComponent = (props: IRowComponentProps) => {
       >
         {generateRow(props.row, props.headers)}
       </div>
-      {isExpanded && (
-        <div>{data && data.stockTransactionsAggregateSchema.symbol}</div>
-      )}
+      {isExpanded &&
+        (props.isFetchingExpandTable ? (
+          <div>Loading</div>
+        ) : (
+          <div>
+            <TableComponent
+              headers={tableColumnConfig}
+              dataSource={props.expandTableCallbackData.stockTransactions}
+            />
+          </div>
+        ))}
     </div>
   );
 };

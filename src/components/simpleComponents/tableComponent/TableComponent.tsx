@@ -1,7 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { Fields } from "../../stocksComponents/addTransaction/addTransaction";
-import RowComponent from "./RowComponent.tsx/ROwComponent";
+import RowComponent from "./RowComponent.tsx/RowComponent";
 
 import styles from "./TableComponent.module.css";
 
@@ -31,6 +31,7 @@ const generateHeaders = (value: string) => {
 };
 
 const TableComponent = (props: ITableComponentProps) => {
+  console.log(props.expandTableCallback);
   return (
     <>
       <div>
@@ -50,6 +51,7 @@ const TableComponent = (props: ITableComponentProps) => {
               row={row}
               expandTableCallback={props.expandTableCallback}
               expandTableCallbackData={props.expandTableCallbackData}
+              isFetchingExpandTable={props.isFetchingExpandTable}
             />
           );
         })}

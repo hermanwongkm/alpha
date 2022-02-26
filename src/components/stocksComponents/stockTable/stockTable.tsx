@@ -1,11 +1,12 @@
 import { useQuery } from "urql";
-import React from "react";
+import React, { useEffect } from "react";
 import getStockTransactions from "../../../graphql/queries/stocks/getStocksTransactions";
 
 import TableComponent from "../../simpleComponents/tableComponent/TableComponent";
 import { Fields } from "../addTransaction/addTransaction";
 import getStocksAggregate from "../../../graphql/queries/stocks/getStocksAggregate";
 import getStockStreams from "../../../graphql/queries/stocks/getStockStreams";
+import getStocksTransactionsBySymbol from "../../../graphql/queries/stocks/getStocksTransactionsBySymbol";
 
 const tableColumnConfig = [
   {
@@ -48,7 +49,7 @@ const tableColumnParentConfig = [
   },
   {
     value: "Average Price",
-    key: Fields.PRICE,
+    key: Fields.AVERAGE_PRICE,
     width: "1fr",
   },
   {
@@ -59,46 +60,47 @@ const tableColumnParentConfig = [
 ];
 
 const StocksTable = () => {
+  console.log("rerendered");
+  const [stockTransactionsSymbol, setStockTransactionsSymbol] = React.useState<
+    string | null
+  >(null);
+
   //urql is a GraphQL client that exposes a set of React components and hooks
-  const [result] = useQuery({
+  const [stockStreams] = useQuery({
     query: getStockStreams,
     pause: false,
   });
-  console.log(result);
 
-  const [result2, getStockTransactionsForStream] = useQuery({
-    query: getStockTransactions,
-    pause: false,
-  });
-  console.log(result2);
-
-  const [resultAggregate, refetch] = useQuery({
-    query: getStocksAggregate,
-    variables: { symbol: "AAPL" },
+  const [stockTransactionsBySymbol, reexecuteQuery] = useQuery({
+    query: getStocksTransactionsBySymbol,
+    variables: { symbol: stockTransactionsSymbol },
     pause: true,
   });
-  const { data: data2, fetching2, error2 } = result2;
-  const { data, fetching, error } = result;
+  console.log(stockTransactionsBySymbol);
+  useEffect(() => {
+    reexecuteQuery();
+  }, [stockTransactionsSymbol]);
+
+  const {
+    data: stockTransactionsData,
+    fetching: fetching3,
+    error3,
+  } = stockTransactionsBySymbol;
+  console.log(fetching3);
+  const { data: stockStreamsData, fetching, error } = stockStreams;
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-  console.log(data);
-  console.log(data2);
-  console.log(resultAggregate);
 
   return (
-    <div
-      onClick={() => {
-        console.log("abc");
-        console.log(refetch());
-      }}
-    >
+    <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
         <>
           <TableComponent
-            headers={tableColumnConfig}
-            dataSource={data2.stockTransaction}
-            expandTableCallback={refetch}
-            expandTableCallbackData={resultAggregate}
+            headers={tableColumnParentConfig}
+            dataSource={stockStreamsData.stockTransactionStreamSchema}
+            expandTableCallback={setStockTransactionsSymbol}
+            expandTableCallbackData={stockTransactionsData || []}
+            isFetchingExpandTable={fetching3}
           />
         </>
       </div>
@@ -107,3 +109,15 @@ const StocksTable = () => {
 };
 
 export default StocksTable;
+
+// const [result2, getStockTransactionsForStream] = useQuery({
+//   query: getStockTransactions,
+//   pause: false,
+// });
+// const { data: data2, fetching2, error2 } = result2;
+
+// const [resultAggregate, refetch] = useQuery({
+//   query: getStocksAggregate,
+//   variables: { symbol: "AAPL" },
+//   pause: true,
+// });

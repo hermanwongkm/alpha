@@ -19,6 +19,7 @@ export enum Fields {
   SYMBOL = "symbol",
   TYPE = "type",
   PNL = "profitOrLoss",
+  AVERAGE_PRICE = "averagePrice",
 }
 
 const AddTransaction = (props: any) => {
