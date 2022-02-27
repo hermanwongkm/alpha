@@ -1,3 +1,4 @@
+import { background } from "@chakra-ui/react";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { Fields } from "../../../stocksComponents/addTransaction/addTransaction";
@@ -58,7 +59,7 @@ const RowComponent = (props: IRowComponentProps) => {
   }, [props.expanded]);
 
   return (
-    <div>
+    <div className={`${props.expanded ? "expanded" : "cow"}`}>
       <div
         onClick={() => {
           if (props.expanded) {
@@ -67,7 +68,8 @@ const RowComponent = (props: IRowComponentProps) => {
             props.setExpandedCallback(props.index);
           }
         }}
-        className={styles.wrapper}
+        className={`${styles.wrapper}  ${props.expanded ? styles.expanded : styles.cow
+          }`}
         style={{
           gridTemplateColumns: `${generateColumn(props.headers)}`,
         }}

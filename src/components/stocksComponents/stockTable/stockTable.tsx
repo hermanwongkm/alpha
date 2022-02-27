@@ -8,6 +8,11 @@ import getStocksTransactionsBySymbol from "../../../graphql/queries/stocks/getSt
 
 const tableColumnConfig = [
   {
+    value: "",
+    key: "",
+    width: "0.1fr",
+  },
+  {
     value: "Date",
     key: Fields.DATE,
     width: "1fr",
@@ -82,17 +87,15 @@ const StocksTable = () => {
   return (
     <div>
       <div style={{ marginTop: "20px", marginBottom: "5rem" }}>
-        <>
-          <TableComponent
-            headers={tableColumnParentConfig}
-            isFetching={fetching}
-            dataSource={stockStreamsData.stockTransactionStreamSchema}
-            expandTableHeaders={tableColumnConfig}
-            expandTableCallback={setStockTransactionsSymbol}
-            expandTableCallbackData={stockTransactionsData?.stockTransactions}
-            isExpandTableDataFetching={fetching3}
-          />
-        </>
+        <TableComponent
+          headers={tableColumnParentConfig}
+          isFetching={fetching}
+          dataSource={stockStreamsData.stockTransactionStreamSchema}
+          expandTableHeaders={tableColumnConfig}
+          expandTableCallback={setStockTransactionsSymbol}
+          expandTableCallbackData={stockTransactionsData?.stockTransactions}
+          isExpandTableDataFetching={fetching3}
+        />
       </div>
     </div>
   );

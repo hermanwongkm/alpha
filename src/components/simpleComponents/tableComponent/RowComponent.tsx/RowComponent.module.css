@@ -17,6 +17,12 @@
   border-bottom: 0.1rem solid #EEF0F2;
 }
 
+.expanded {
+  background-color: aliceblue;
+}
+
+.cow{
+}
+
 .expandedWrapper {
-  margin-left: 2rem;
 }
