@@ -14,11 +14,12 @@ export interface IRowComponentProps {
   row: ITableData;
   expanded: boolean;
   index: number;
-  expandTableHeaders?: IExpandColumnHeader[];
-  isExpandTableDataFetching: boolean;
-  expandTableCallbackData: any;
+  expandTableHeaders?: IExpandColumnHeader[] | null;
+  isExpandTableDataFetching?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expandTableCallbackData?: any;
   setExpandedCallback: (index: number | null) => void;
-  expandTableCallback: (symbol: string) => void;
+  expandTableCallback?: (symbol: string) => void;
 }
 
 const generateColumn = (columnHeaders: IColumnHeader[]) => {
@@ -51,7 +52,7 @@ const generateRow = (row: ITableData, headers: IColumnHeader[]) => {
 const RowComponent = (props: IRowComponentProps) => {
   //I did not set expanded state here as i will do that eventually when i get redux
   useEffect(() => {
-    if (props.expanded) {
+    if (props.expanded && props.expandTableCallback) {
       props.expandTableCallback(props.row.symbol);
     }
   }, [props.expanded]);
@@ -73,15 +74,17 @@ const RowComponent = (props: IRowComponentProps) => {
       >
         {generateRow(props.row, props.headers)}
       </div>
-      {props.expanded && (
-        <div>
-          <TableComponent
-            headers={props.expandTableHeaders}
-            dataSource={props.expandTableCallbackData}
-            isFetching={props.isExpandTableDataFetching}
-          />
-        </div>
-      )}
+      {props.expanded &&
+        props.expandTableHeaders &&
+        props.isExpandTableDataFetching && (
+          <div>
+            <TableComponent
+              headers={props.expandTableHeaders}
+              dataSource={props.expandTableCallbackData}
+              isFetching={props.isExpandTableDataFetching}
+            />
+          </div>
+        )}
     </div>
   );
 };

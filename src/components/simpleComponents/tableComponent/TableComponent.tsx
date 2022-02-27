@@ -9,10 +9,10 @@ export interface ITableComponentProps {
   dataSource: ITableData[];
   isFetching: boolean;
   expandTableHeaders?: IExpandColumnHeader[];
-  expandTableCallback: (symbol: string) => void;
+  expandTableCallback?: (symbol: string) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  expandTableCallbackData: any;
-  isExpandTableDataFetching: boolean;
+  expandTableCallbackData?: any;
+  isExpandTableDataFetching?: boolean;
 }
 export interface ITableData {
   [Fields.SYMBOL]: string;
