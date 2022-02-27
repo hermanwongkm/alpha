@@ -74,17 +74,15 @@ const RowComponent = (props: IRowComponentProps) => {
       >
         {generateRow(props.row, props.headers)}
       </div>
-      {props.expanded &&
-        props.expandTableHeaders &&
-        props.isExpandTableDataFetching && (
-          <div>
-            <TableComponent
-              headers={props.expandTableHeaders}
-              dataSource={props.expandTableCallbackData}
-              isFetching={props.isExpandTableDataFetching}
-            />
-          </div>
-        )}
+      {props.expanded && props.expandTableHeaders && (
+        <div className={styles.expandedWrapper}>
+          <TableComponent
+            headers={props.expandTableHeaders}
+            dataSource={props.expandTableCallbackData}
+            isFetching={props.isExpandTableDataFetching || false}
+          />
+        </div>
+      )}
     </div>
   );
 };

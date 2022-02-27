@@ -13,23 +13,18 @@ const tableColumnConfig = [
     width: "1fr",
   },
   {
-    value: "Symbol",
-    key: Fields.SYMBOL,
-    width: "1fr",
-  },
-  {
     value: "Type",
     key: Fields.TYPE,
     width: "1fr",
   },
   {
-    value: "Price",
-    key: Fields.PRICE,
+    value: "Size",
+    key: Fields.POSITION_SIZE,
     width: "1fr",
   },
   {
-    value: "Size",
-    key: Fields.POSITION_SIZE,
+    value: "Price",
+    key: Fields.PRICE,
     width: "1fr",
   },
   {
@@ -58,7 +53,6 @@ const tableColumnParentConfig = [
 ];
 
 const StocksTable = () => {
-  console.log("rerendered");
   const [stockTransactionsSymbol, setStockTransactionsSymbol] = React.useState<
     string | null
   >(null);
@@ -74,14 +68,13 @@ const StocksTable = () => {
     variables: { symbol: stockTransactionsSymbol },
     pause: true,
   });
-  console.log(stockTransactionsBySymbol);
+
   useEffect(() => {
     reexecuteQuery();
   }, [stockTransactionsSymbol]);
 
   const { data: stockTransactionsData, fetching: fetching3 } =
     stockTransactionsBySymbol;
-  console.log(fetching3);
   const { data: stockStreamsData, fetching, error } = stockStreams;
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;

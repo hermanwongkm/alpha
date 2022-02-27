@@ -1,5 +1,4 @@
 import React from "react";
-import { Fields } from "../../stocksComponents/addTransaction/addTransaction";
 import RowComponent from "./RowComponent.tsx/RowComponent";
 
 import styles from "./TableComponent.module.css";
@@ -15,9 +14,8 @@ export interface ITableComponentProps {
   isExpandTableDataFetching?: boolean;
 }
 export interface ITableData {
-  [Fields.SYMBOL]: string;
-  [Fields.PRICE]: string;
-  [Fields.POSITION_SIZE]: string;
+  //Type of key-value pair
+  [key: string]: string;
 }
 export interface IColumnHeader {
   value: string;
