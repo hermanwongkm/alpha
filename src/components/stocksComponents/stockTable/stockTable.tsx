@@ -71,7 +71,7 @@ const StocksTable = () => {
   const [stockTransactionsBySymbol, reexecuteQuery] = useQuery({
     query: getStocksTransactionsBySymbol,
     variables: { symbol: stockTransactionsSymbol },
-    pause: true,
+    pause: !stockTransactionsSymbol,
   });
 
   useEffect(() => {

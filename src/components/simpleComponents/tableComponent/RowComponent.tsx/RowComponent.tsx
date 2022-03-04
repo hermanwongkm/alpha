@@ -20,7 +20,7 @@ export interface IRowComponentProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expandTableCallbackData?: any;
   setExpandedCallback: (index: number | null) => void;
-  expandTableCallback?: (symbol: string) => void;
+  expandTableCallback?: (symbol: string | null) => void;
 }
 
 const generateColumn = (columnHeaders: IColumnHeader[]) => {
@@ -62,8 +62,9 @@ const RowComponent = (props: IRowComponentProps) => {
     <div className={`${props.expanded ? "expanded" : "cow"}`}>
       <div
         onClick={() => {
-          if (props.expanded) {
+          if (props.expanded && props.expandTableCallback) {
             props.setExpandedCallback(null);
+            props.expandTableCallback(null);
           } else {
             props.setExpandedCallback(props.index);
           }
